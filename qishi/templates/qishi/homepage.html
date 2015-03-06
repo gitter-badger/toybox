@@ -3,9 +3,9 @@
     {% if user.is_authenticated %}
     <li>Welcome {{ user.get_full_name }}</li>
     <li>Click <a href="{% url 'qishi.views_user.user_logout' %}">here</a> to logout.</li>
-    <li>Click <a href="">here</a> to post a new article.</li>
+    <li>Click <a href="{% url 'qishi.views_forum.new_post' %}">here</a> to post a new article.</li>
     {% else %}
     <li>Please login</li>
-    <li>Click <a href="{% url 'qishi.views_forum.new_post' %}">here</a> to login.</li>
+    <li>Click <a href="{% url 'qishi.views_user.user_login' %}">here</a> to login.</li>
     {% endif %}
 </ul>
