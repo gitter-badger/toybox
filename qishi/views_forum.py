@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 from markdown import markdown
 
+from qishi.models import Post
 from qishi.forms_forum import NewPostForm
 
 
@@ -15,22 +16,30 @@ from qishi.forms_forum import NewPostForm
 def new_post(request):
 
     if request.method == "POST":
-        # Article has been submitted
-        post_info = { 'text' : request.POST['edit_area'] }
-        url = reverse( 'qishi.views_forum.display_post', args=(request, ) )
-        return HttpResponseRedirect(url)
+        p = NewPostForm( data=request.POST )
+        if p.is_valid():
+            # create new form, but don't save the new instance
+            new_post = p.save( commit=False )
+
+            # add user info
+            new_post.posted_by = request.user
+            new_post.save()
+
+            return HttpResponseRedirect( '/qishi/display_posts/' )
     
     return render(request, "qishi/forum/new_post.html", {
         'form' : NewPostForm
     })
     
 
+def display_posts(request):
 
-def display_post(request):
-    post_info = { 'text' : 'hello world' }
-    text = markdown(post_info['text'], safe_mode="escape")
-
-    return render(request, "qishi/forum/display_post.html", {
-        'text' : text
+    posts = [ { 
+        'user'    : p.posted_by,
+        'message' : markdown( p.message, safe_mode="escape" )
+    } for p in Post.objects.all() ]
+    
+    return render(request, "qishi/forum/display_posts.html", {
+        'posts' : posts
     })
     

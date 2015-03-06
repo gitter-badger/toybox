@@ -1,0 +1,1 @@
+- Understand function reverse() and its role in HttpResponseRedirect( reverse(...) )

@@ -34,3 +34,19 @@
 .markdown-library-chooser .selected img {
 	background-color: #66afe9;
 }
+
+/* ----- Yue's code starts here ----- */
+img[alt="sm"] {
+    width: 40px; 
+    height: auto;
+}
+
+img[alt="md"] {
+    width: 80px; 
+    height: auto;
+}
+
+img[alt="lg"] {
+    width: 120px; 
+    height: auto;
+}

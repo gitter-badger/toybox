@@ -1,11 +1,13 @@
 <h1>Welcome to Qishi</h1>
 <ul>
     {% if user.is_authenticated %}
-    <li>Welcome {{ user.get_full_name }}</li>
+    <li>Welcome <b style="color:red">{{ user.get_username }}</b></li>
     <li>Click <a href="{% url 'qishi.views_user.user_logout' %}">here</a> to logout.</li>
     <li>Click <a href="{% url 'qishi.views_forum.new_post' %}">here</a> to post a new article.</li>
     {% else %}
-    <li>Please login</li>
-    <li>Click <a href="{% url 'qishi.views_user.user_login' %}">here</a> to login.</li>
+    <li>Please login or register</li>
+    <li>To <a href="{% url 'qishi.views_user.user_login' %}">login</a>.</li>
+    <li>To <a href="{% url 'qishi.views_user.user_register' %}">register</a>.</li>
     {% endif %}
+    <li>Visit our <a href="{% url 'qishi.views_forum.display_posts' %}">forum</a>.</li>
 </ul>
