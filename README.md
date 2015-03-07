@@ -6,6 +6,8 @@ Project Related: (please start with small & easy tasks)
 
 [+] Add title, last_modified_date to the Post model
 
+[+] We should use a short markdown tutorial as the default value for the new post page.
+
 [+] On the display_posts page, the needed css file is import by hard coding.  We need to change it to static file loading. (django_bootstrap_markdown could give some hints).
 
 [+] Build user profile for each user. Not sure if we can directly change the django.contrib.auth.models.User model.  If we cannot, simple add another model which contains a foreign key to User.
