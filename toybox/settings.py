@@ -40,10 +40,17 @@ INSTALLED_APPS = (
     # User defined
     'imagekit',
     'django_bootstrap_markdown',
-    
+
+    # toybox applications
+    'accounts',  # to be consistent with LOGIN_URL, LOGIN_REDIRECT_URL defaults, see below
+
     # toybox clubs
     'qishi',
 )
+# default values:
+# LOGIN_URL = '/accounts/login/'
+# LOGIN_REDIRECT_URL = '/accounts/profile/'
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

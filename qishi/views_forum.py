@@ -32,11 +32,12 @@ def new_post(request):
     })
     
 
+@login_required
 def display_posts(request):
 
     posts = [ { 
         'user'    : p.posted_by,
-        'message' : markdown( p.message, safe_mode="escape" )
+        'message' : markdown( p.message, safe_mode="escape" ),
     } for p in Post.objects.all() ]
     
     return render(request, "qishi/forum/display_posts.html", {
