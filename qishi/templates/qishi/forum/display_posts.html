@@ -27,7 +27,7 @@
             <table border="1">
             <tr>
                 <td>{{ p.user }} said:</td>
-                <td>Delete (@ToDo)</td>
+                <td> <a href="{% url 'qishi_delete_post' post_id=p.id %}" onclick="return confirm('Do you want to delete it?')">Delete</td>
             </tr>
             <tr>
                 <td colspan="2">{{ p.message|safe }}</td>
