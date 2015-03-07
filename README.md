@@ -16,6 +16,8 @@
 
 [+] Need a way to browse all posts page by page, sorted by last_modified_date.  Show only titles, user may click in to see the content of the post.
 
+[+] After reading the Django document, I realized user login/register should be handled by the project, not any single app.  We should move the corresponding part to the project folder or a separate app.  I am not sure which way is better, but the project folder might be easier to work with.
+
 ## General Knowledge:
 
 [+] Understand function `reverse()` and its role in `HttpResponseRedirect( reverse(...) )`.
