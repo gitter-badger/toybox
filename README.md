@@ -1,6 +1,6 @@
-Project Todo List (please move all finished items to the end.) 
+# Project Todo List (please move all finished items to the end.) 
 
-Project Related: (please start with small & easy tasks)
+## Project Related: (please start with small & easy tasks)
 
 [+] Delete post
 
@@ -16,7 +16,7 @@ Project Related: (please start with small & easy tasks)
 
 [+] Need a way to browse all posts page by page, sorted by last_modified_date.  Show only titles, user may click in to see the content of the post.
 
-General Knowledge:
+## General Knowledge:
 
 [+] Understand function `reverse()` and its role in `HttpResponseRedirect( reverse(...) )`.
 
