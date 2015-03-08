@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 
 from django.contrib.auth import authenticate, login, logout
@@ -36,6 +36,7 @@ def new_post(request):
 def display_posts(request):
 
     posts = [ { 
+        'id'      : p.id,
         'user'    : p.posted_by,
         'message' : markdown( p.message, safe_mode="escape" ),
     } for p in Post.objects.all() ]
@@ -43,4 +44,15 @@ def display_posts(request):
     return render(request, "qishi/forum/display_posts.html", {
         'posts' : posts
     })
+    
+@login_required
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    #only a staff or the poster can delete the post
+    if not (request.user.is_staff or request.user.id == post.posted_by.id):
+        return HttpResponse('no right')
+    post.delete()
+    #TODO: update related topic and forum
+    return HttpResponseRedirect('/qishi/display_posts/' )
+
     
