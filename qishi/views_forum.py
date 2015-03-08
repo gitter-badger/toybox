@@ -35,12 +35,12 @@ def new_post(request):
 @login_required
 def display_posts(request):
 
-    posts = [ { 
-        'id'      : p.id,
-        'user'    : p.posted_by,
-        'message' : markdown( p.message, safe_mode="escape" ),
-    } for p in Post.objects.all() ]
-    
+#     posts = [ { 
+#         'id'      : p.id,
+#         'user'    : p.posted_by,
+#         'message' : p.message, #markdown( p.message, safe_mode="escape" ),
+#     } for p in Post.objects.all() ]
+    posts = Post.objects.all()
     return render(request, "qishi/forum/display_posts.html", {
         'posts' : posts
     })
@@ -50,7 +50,7 @@ def delete_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     #only a staff or the poster can delete the post
     if not (request.user.is_staff or request.user.id == post.posted_by.id):
-        return HttpResponse('no right')
+        return HttpResponse('no right to delete this post') #@TODU @message framework
     post.delete()
     #TODO: update related topic and forum
     return HttpResponseRedirect('/qishi/display_posts/' )
