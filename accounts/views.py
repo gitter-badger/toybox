@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-
+from django.contrib.auth.decorators import login_required
 from .forms import UserLoginForm, UserRegisterForm
 
 def user_login(request):
@@ -66,3 +66,16 @@ def user_register(request):
         'form' : UserRegisterForm
     })
     
+@login_required
+def profile(request, user_id=None, template_name="accounts/profile.html"):
+    ''' "request.user" try to view his own profile if user_id=None,
+    or "view_user"'s profile with a user_id. '''
+    
+    view_user = request.user
+    if user_id:
+        view_user = get_object_or_404(User, pk=user_id)
+    view_only = view_user != request.user
+    #TODO: 'view_user.get_profile()' does not work
+    ext_ctx = {'view_user'      : view_user, 
+               'view_only'      : view_only}
+    return render(request, template_name, ext_ctx)
