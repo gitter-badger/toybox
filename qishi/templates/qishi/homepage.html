@@ -2,6 +2,7 @@
 <ul>
     {% if user.is_authenticated %}
     <li>Welcome <b style="color:red">{{ user.get_username }}</b></li>
+    <li>Click <a href="{% url 'accounts.views.profile' %}">here</a> to view my profile.</li>
     <li>Click <a href="{% url 'accounts.views.user_logout' %}">here</a> to logout.</li>
     <li>Click <a href="{% url 'qishi.views_forum.new_post' %}">here</a> to post a new article.</li>
     {% else %}

@@ -99,3 +99,6 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = 'media'
 MEDIA_URL = '/media/'
+
+# allow the User method -- get_profile() 
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'
