@@ -1,0 +1,12 @@
+<h1>{{ view_user }}'s profile</h1>
+ 
+{% if not view_only %}
+<p>
+    <span><a href=""> Change your password (@TODO) </a></span>
+</p>
+{% endif %}
+ 
+<ul>
+    <li><span>Signature:<strong>{{view_user.user_profile.signature}}</strong></span></li>
+    <li><span>Favorite animal:<strong>{{view_user.user_profile.favorite_animal}}</strong></span></li>
+</ul>

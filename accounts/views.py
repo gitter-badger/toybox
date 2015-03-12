@@ -75,7 +75,6 @@ def profile(request, user_id=None, template_name="accounts/profile.html"):
     if user_id:
         view_user = get_object_or_404(User, pk=user_id)
     view_only = view_user != request.user
-    #TODO: 'view_user.get_profile()' does not work
     ext_ctx = {'view_user'      : view_user, 
                'view_only'      : view_only}
     return render(request, template_name, ext_ctx)
