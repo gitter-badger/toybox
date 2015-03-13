@@ -6,7 +6,15 @@
 
     <table border="1">
     <tr>{{topic.subject}}</tr>
+    {% if user.is_staff %}
+     <tr>
+        <a href="{% url 'qishi.views_forum.update_topic_attr_switch' topic_id=topic.id attr='is_blog' %}">
+          {% if topic.is_blog %} unset blog {% else %} set blog {% endif %}
+        </a>  
+    </tr>
+    {% endif %}
     <tr>
+    
        <td> Posted by <a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}">{{ topic.posted_by }}</a> </td>
        <td> {{ topic.num_views }} views  </td>
        <td> <a href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</td>

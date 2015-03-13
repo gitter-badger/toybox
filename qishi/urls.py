@@ -10,6 +10,9 @@ urlpatterns = patterns(
     url(r'^(?P<topic_id>\d+)$','qishi.views_forum.topic'),
     url(r'^(?P<topic_id>\d+)/delete/$', 'qishi.views_forum.delete_topic',
         name='qishi_delete_topic'),
+    url(r'^(?P<topic_id>\d+)/update_topic_attr_switch/(?P<attr>[\w-]+)/$',
+        'qishi.views_forum.update_topic_attr_switch'),
+    url(r'^blog/$','qishi.views_forum.blog'),
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'',  'qishi.views.home'), # back to homepage for all unmatched url

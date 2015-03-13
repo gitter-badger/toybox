@@ -87,3 +87,23 @@ def topic(request, topic_id, template_name="qishi/forum/topic.html"):
     posts = posts.order_by('created_on').select_related()
     ext_ctx = {'topic': topic, 'posts': posts}
     return render(request, template_name, ext_ctx)
+    
+@login_required
+def update_topic_attr_switch(request, topic_id, attr):
+    if not request.user.is_staff:
+        pass #@TODO
+    topic = get_object_or_404(Topic, id=topic_id)
+    if attr == 'sticky':
+        topic.sticky = not topic.sticky
+    elif attr == 'close':
+        topic.closed = not topic.closed
+    elif attr == 'is_blog':
+        topic.is_blog = not topic.is_blog
+    topic.save()
+    
+    return HttpResponseRedirect(reverse("qishi.views_forum.topic", args=[topic.id]))
+
+def blog(request):
+    blogs = Topic.objects.filter(is_blog = True)
+    ctx = {'blogs': blogs}
+    return render(request,"qishi/forum/blog.html", ctx)   

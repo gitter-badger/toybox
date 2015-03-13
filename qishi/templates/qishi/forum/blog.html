@@ -1,0 +1,29 @@
+{% load qishi_filters %}
+<p><a href="{% url 'qishi.views.home' %}">Back to homepage</a>.</p>
+  
+
+  {% for blog in blogs %}  
+        <!-- Title -->
+                <h1><a href="{% url 'qishi.views_forum.topic' topic_id=blog.id %}">{{blog.subject}}</a></h1>
+
+                <!-- Author -->
+                <p>
+                    by  {{blog.posted_by.username }}
+                </p>
+
+                <hr>
+
+                <!-- Date/Time -->
+                <p><span> Posted on {{blog.created_on}}</span></p>
+
+ 
+
+                <hr>
+                
+                <!-- Post Content -->
+                <p class="lead">@TODO</p>
+                <hr>     
+     
+    {% endfor %}
+    
+  
