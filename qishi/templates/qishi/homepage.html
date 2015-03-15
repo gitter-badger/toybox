@@ -4,11 +4,11 @@
     <li>Welcome <b style="color:red">{{ user.get_username }}</b></li>
     <li>Click <a href="{% url 'accounts.views.profile' %}">here</a> to view my profile.</li>
     <li>Click <a href="{% url 'accounts.views.user_logout' %}">here</a> to logout.</li>
-    <li>Click <a href="{% url 'qishi.views_forum.new_post' %}">here</a> to post a new article.</li>
     {% else %}
     <li>Please login or register</li>
     <li>To <a href="{% url 'accounts.views.user_login' %}">login</a>.</li>
     <li>To <a href="{% url 'accounts.views.user_register' %}">register</a>.</li>
     {% endif %}
-    <li>Visit our <a href="{% url 'qishi.views_forum.display_posts' %}">forum</a>.</li>
+    <li>Visit our <a href="{% url 'qishi.views_forum.category' %}">forum</a>.</li>
+    <li>Visit our <a href="{% url 'qishi.views_forum.blog' %}">blog</a>.</li>
 </ul>

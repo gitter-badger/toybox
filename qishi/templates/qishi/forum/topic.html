@@ -1,0 +1,28 @@
+{% load qishi_filters %}
+<p><a href="{% url 'qishi.views.home' %}">Back to homepage</a>.</p>
+  <p><a href="{% url 'qishi.views_forum.display_forum' forum_id=topic.forum.id %}">Back to {{topic.forum}}</a>.</p>
+<p>
+ 
+
+    <table border="1">
+    <tr>{{topic.subject}}</tr>
+    {% if user.is_staff %}
+     <tr>
+        <a href="{% url 'qishi.views_forum.update_topic_attr_switch' topic_id=topic.id attr='is_blog' %}">
+          {% if topic.is_blog %} unset blog {% else %} set blog {% endif %}
+        </a>  
+    </tr>
+    {% endif %}
+    <tr>
+    
+       <td> Posted by <a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}">{{ topic.posted_by }}</a> </td>
+       <td> {{ topic.num_views }} views  </td>
+       <td> <a href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</td>
+    </tr>
+    {% for post in posts %}
+    <tr>
+        <td colspan="3">{{ post.message|text_markdown|safe }}</td>
+    </tr>
+    </table>
+    {% endfor %}
+</p>

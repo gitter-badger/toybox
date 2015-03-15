@@ -21,9 +21,10 @@
     <p><a href="{% url 'qishi.views.home' %}">Back to homepage</a>.</p>
     
     <div class="container" style="margin-bottom: 20px;">
-      <form action="{% url 'qishi.views_forum.new_post' %}" method="POST">
+      <form action="{% url 'qishi.views_forum.new_post' forum_id=forum_id %}" method="POST">
 	       {% csrf_token %}
 	       <div class="form-group">
+	       {{ form.subject}}
 	       {{ form.message }}
 	       </div>
 	       <input type="submit" value="Submit">

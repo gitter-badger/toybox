@@ -22,21 +22,20 @@
 
     <div style="margin-left:100px">
         <p><a href="{% url 'qishi.views.home' %}">Back to homepage</a>.</p>
-
-        {% if posts %}
+        <p>Click <a href="{% url 'qishi.views_forum.new_post' forum_id=forum_id%}">here</a> to post a new article.</p>
+        {% if topics %}
         <p>
-            {% for p in posts %}
+            {% for topic in topics %}
             <table border="1">
+            <tr><a href="{% url 'qishi.views_forum.topic' topic_id=topic.id %}">{{topic.subject}}</a></tr>
             <tr>
-                <td> <a href="{% url 'accounts.views.profile' user_id=p.posted_by.pk %}">{{ p.posted_by }}</a> said:</td>
-                <td> <a href="{% url 'qishi_delete_post' post_id=p.id %}" onclick="return confirm('Do you want to delete it?')">Delete</td>
-            </tr>
-            <tr>
-                <td colspan="2">{{ p.message|text_markdown|safe }}</td>
+                <td> Posted by <a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}">{{ topic.posted_by }}</a> </td>
+                <td> <a href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</td>
             </tr>
             </table>
             <br/>
-            {% endfor %}
+            
+            {% endfor %} <!-- topics -->
         </p>
         {% endif %}
     </div>
