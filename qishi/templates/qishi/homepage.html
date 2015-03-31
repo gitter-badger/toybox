@@ -1,14 +1,19 @@
-<h1>Welcome to Qishi</h1>
-<ul>
-    {% if user.is_authenticated %}
-    <li>Welcome <b style="color:red">{{ user.get_username }}</b></li>
-    <li>Click <a href="{% url 'accounts.views.profile' %}">here</a> to view my profile.</li>
-    <li>Click <a href="{% url 'accounts.views.user_logout' %}">here</a> to logout.</li>
-    {% else %}
-    <li>Please login or register</li>
-    <li>To <a href="{% url 'accounts.views.user_login' %}">login</a>.</li>
-    <li>To <a href="{% url 'accounts.views.user_register' %}">register</a>.</li>
-    {% endif %}
-    <li>Visit our <a href="{% url 'qishi.views_forum.category' %}">forum</a>.</li>
-    <li>Visit our <a href="{% url 'qishi.views_forum.blog' %}">blog</a>.</li>
-</ul>
+{% extends "qishi/base.html" %}
+
+{% load qishi_filters %}
+
+{% block title %}Welcome to Qishi{% endblock %}
+
+
+{% block body %}
+<div class="container">
+    <div class="jumbotron"></div>
+</div>
+{% endblock %}
+
+
+{% block footer_script %}
+<script type="text/javascript">
+    $( "#navitem-home" ).addClass("active")
+</script>
+{% endblock %}

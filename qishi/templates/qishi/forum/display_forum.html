@@ -1,46 +1,79 @@
+{% extends "qishi/base.html" %}
+
 {% load qishi_filters %}
-<!DOCTYPE html>
 
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>Django Bootstrap Markdown Test Application</title>
+{% block body %}
+<!-- Page Content -->
+<div class="container">
+      <div class="row">
+      
+          <!-- Blog Post Content Column -->
+          <div class="col-sm-3 col-md-2 sidebar">
+              <ul class="nav navbar-nav">
+                  <li><a href="#">Reserved</a></li>
+                  <li><a href="#">Reserved</a></li>
+                  <li><a href="#">Reserved</a></li>
+                  <li><a href="#">Reserved</a></li>
+                  <li><a href="#">Reserved</a></li>
+              </ul>
+          </div>  
 
-  <!-- Bootstrap -->
-  <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
-  ![endif]-->
-</head>
-<body>
+          <div class="col-sm-9 col-md-10">
 
-    <div style="margin-left:100px">
-        <p><a href="{% url 'qishi.views.home' %}">Back to homepage</a>.</p>
-        <p>Click <a href="{% url 'qishi.views_forum.new_post' forum_id=forum_id%}">here</a> to post a new article.</p>
-        {% if topics %}
-        <p>
-            {% for topic in topics %}
-            <table border="1">
-            <tr><a href="{% url 'qishi.views_forum.topic' topic_id=topic.id %}">{{topic.subject}}</a></tr>
-            <tr>
-                <td> Posted by <a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}">{{ topic.posted_by }}</a> </td>
-                <td> <a href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</td>
-            </tr>
-            </table>
-            <br/>
+            <div class="row">
+                <a class="btn btn-primary btn-sm pull-right" href="{% url 'qishi.views_forum.new_post' forum_id=forum_id%}">New Post</a>
+            </div>
             
-            {% endfor %} <!-- topics -->
-        </p>
-        {% endif %}
+            <div class="row">
+              {% if topics %}    
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Posted on</th>
+                    <th>Options</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for topic in topics %}
+                    <tr>
+
+                      <!-- ID -->
+                      <td>{{ forloop.counter }}</td>
+
+                      <!-- Title -->
+                      <td><a href="{% url 'qishi.views_forum.topic' topic_id=topic.id %}">{{topic.subject}}</a></td>
+
+                      <!-- Author -->
+                      <td><a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}">{{ topic.posted_by }}</a></td>
+
+                      <!-- Date/Time -->
+                      <td><span class="glyphicon glyphicon-time"></span> August 24, 2013 at 9:00 PM @TODO</td>
+
+                      <!-- Post Content -->
+                      <td><a href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</a></td>
+
+                    </tr>              
+                  {% endfor %} <!-- topics -->
+                </tbody>
+              </table>
+              {% endif %}
+            </div>
+          </div>
     </div>
-    
+</div>
+
 <p>(@ToDo) the page import django_bootstrap_markdown.css as hard coded html, should use static</p>
 <link href="/static/css/django_bootstrap_markdown.css" type="text/css" media="all" rel="stylesheet">
-</body>
-</html>
+
+{% endblock %}
+
+
+{% block footer_script %}
+<script type="text/javascript">
+    $( "#navitem-forum" ).addClass("active")
+</script>
+{% endblock %}
