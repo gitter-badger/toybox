@@ -12,5 +12,13 @@ class NewPostForm(forms.ModelForm):
         fields = ('message', )
 
 
+class ReplyPostForm(forms.ModelForm):
+	message = forms.CharField(widget=MarkdownInput)
+	class Meta:
+		model = Post
+		fields = ('message', )
+
+class QuickReplyPostForm(ReplyPostForm):
+	message = forms.CharField(widget=forms.Textarea)
         
     

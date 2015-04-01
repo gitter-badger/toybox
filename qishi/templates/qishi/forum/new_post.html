@@ -5,14 +5,17 @@
 {% block body %}
     
     <div class="container" style="margin-bottom: 20px;">
-      <form action="{% url 'qishi.views_forum.new_post' forum_id=forum_id %}" method="POST">
-	       {% csrf_token %}
-	       <div class="form-group">
-	       {{ form.subject}}
-	       {{ form.message }}
-	       </div>
-	       <input type="submit" value="Submit">
-      </form>
+
+        <form action="{% if topic_post %}{% url 'qishi.views_forum.new_post' forum_id=forum_id %}
+                      {% else %}{% url 'qishi.views_forum.new_reply' topic_id=topic_id %}{% endif %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+  	        {%if topic_post %}{{ form.subject}}{% endif %}
+  	        {{ form.message }}
+  	        </div>
+  	        <input type="submit" value="Submit">
+        </form>
+      
     </div>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
