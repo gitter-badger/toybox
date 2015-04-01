@@ -5,68 +5,73 @@
 {% block body %}
 <!-- Page Content -->
 <div class="container">
-      <div class="row">
-      
-          <!-- Blog Post Content Column -->
-          <div class="col-sm-3 col-md-2 sidebar">
-              <ul class="nav navbar-nav">
-                  <li><a href="#">Reserved</a></li>
-                  <li><a href="#">Reserved</a></li>
-                  <li><a href="#">Reserved</a></li>
-                  <li><a href="#">Reserved</a></li>
-                  <li><a href="#">Reserved</a></li>
-              </ul>
-          </div>  
+    <div class="row">
+    
+        <!-- Blog Post Content Column -->
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav">
+            {# {% if categories %} #}
+                {% for category in categories %}
+                    <li><span>{{ category.name }}</span></li>  
+                    {% for forum in category.forum_set.all %}
+                    <li><a href="{% url 'qishi.views_forum.display_forum' forum_id=forum.id%}">{{ forum.name }}</a></li>
+                    {% endfor %}
+                {% endfor %}
+            {# {% endif %} #}
+            </ul>
+        </div>
 
 
-          <div class="col-sm-9 col-md-10">
+        <div class="col-sm-9 col-md-10">
 
             <div class="row">
                 <a class="btn btn-primary btn-sm pull-right" href="{% url 'qishi.views_forum.new_post' forum_id=forum_id%}">New Post</a>
             </div>
             
             <div class="row">
-              {% if topics %}    
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>Posted on</th>
-                    <th>Options</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for topic in topics %}
-                    <tr>
+                {% if topics %}    
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Posted on</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for topic in topics %}
+                        <tr>
+                            <!-- ID -->
+                            <td>{{ forloop.counter }}</td>
 
-                      <!-- ID -->
-                      <td>{{ forloop.counter }}</td>
+                            <!-- Title -->
+                            <td><a href="{% url 'qishi.views_forum.topic' topic_id=topic.id %}">{{topic.subject}}</a></td>
 
-                      <!-- Title -->
-                      <td><a href="{% url 'qishi.views_forum.topic' topic_id=topic.id %}">{{topic.subject}}</a></td>
+                            <!-- Author -->
+                            <td><a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}">{{ topic.posted_by }}</a></td>
 
-                      <!-- Author -->
-                      <td><a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}">{{ topic.posted_by }}</a></td>
+                            <!-- Date/Time -->
+                            <td><span class="glyphicon glyphicon-time"></span> August 24, 2013 at 9:00 PM @TODO</td>
 
-                      <!-- Date/Time -->
-                      <td><span class="glyphicon glyphicon-time"></span> August 24, 2013 at 9:00 PM @TODO</td>
+                            <!-- Post Content -->
+                            <td><a href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</a></td>
 
-                      <!-- Post Content -->
-                      <td><a href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</a></td>
-
-                    </tr>              
-                  {% endfor %} <!-- topics -->
-                </tbody>
-              </table>
-              {% endif %}
+                         </tr>              
+                        {% endfor %} <!-- topics -->
+                    </tbody>
+                </table>
+                {% else %}
+                    <p>There's no post yet</p>
+                {% endif %}
             </div>
-          </div>
+        </div>
     </div>
+
 </div>
 
-<p>(@ToDo) the page import django_bootstrap_markdown.css as hard coded html, should use static</p>
+<!-- (@ToDo) the page import django_bootstrap_markdown.css as hard coded html, should use static -->
 <link href="/static/css/django_bootstrap_markdown.css" type="text/css" media="all" rel="stylesheet">
 
 {% endblock %}

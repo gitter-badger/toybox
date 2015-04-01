@@ -5,30 +5,48 @@
 {% block body %}
 
 <div class="container">
-    <p><a href="{% url 'qishi.views_forum.display_forum' forum_id=topic.forum.id %}">Back to {{topic.forum}}</a>.</p>
 
-    <table class="table table-striped">
-    <tr>{{topic.subject}}</tr>
-        {% if user.is_staff %}
-        <tr>
-            <a href="{% url 'qishi.views_forum.update_topic_attr_switch' topic_id=topic.id attr='is_blog' %}">
-            {% if topic.is_blog %} unset blog {% else %} set blog {% endif %}
-            </a>  
-        </tr>
-        {% endif %}
-        <tr>
-            <td>Posted by <a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}">{{ topic.posted_by }}</a> </td>
-            <td>{{ topic.num_views }} views  </td>
-            <td><a href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</td>
-        </tr>
-    
-        {% for post in posts %}
-        <tr>
-            <td colspan="3">{{ post.message|text_markdown|safe }}</td>
-        </tr>
-    </table>
-    {% endfor %}
-</p>
+    <div class="row">
+        <p><a href="{% url 'qishi.views_forum.display_forum' forum_id=topic.forum.id %}">Back to {{topic.forum}}</a></p>
+    </div>
+
+    <div class="row thumbnail">
+
+        <table class="table table-striped">
+            
+            <thead>
+                <tr>
+                    <th colspan="3"><span class="glyphicon glyphicon-bookmark"></span> {{topic.subject}}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- Allow Staff to push a post to the blog -->
+                {% if user.is_staff %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'qishi.views_forum.update_topic_attr_switch' topic_id=topic.id attr='is_blog' %}">
+                            {% if topic.is_blog %} unset blog {% else %} set blog {% endif %}
+                            </a>  
+                        <td>
+                    </tr>
+                {% endif %}
+
+                <tr>
+                    <td>Posted by <a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}">{{ topic.posted_by }}</a> </td>
+                    <td>{{ topic.num_views }} views  </td>
+                    <td><a href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</a></td>
+                </tr>
+            
+                {% for post in posts %}
+                    <tr>
+                        <td colspan="3">{{ post.message|text_markdown|safe }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
 
 </div>
 

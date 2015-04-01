@@ -54,13 +54,14 @@ def new_post(request,forum_id, topic_id=None):
 
 @login_required
 def display_forum(request, forum_id):
-    forum = get_object_or_404(Forum, pk=forum_id)
-    topics = forum.topic_set.all()
+    forum      = get_object_or_404(Forum, pk=forum_id)
 
-    return render(request, "qishi/forum/display_forum.html", {
-        'forum_id' : forum_id,
-        'topics'   : topics
-    })
+    ctx = {}
+    ctx['forum_id']   = forum_id
+    ctx['topics']     = forum.topic_set.all()
+    ctx['categories'] = Category.objects.all()
+
+    return render(request, "qishi/forum/display_forum.html", ctx)
     
 @login_required
 def delete_topic(request, topic_id):
@@ -72,7 +73,7 @@ def delete_topic(request, topic_id):
     topic.delete()
     #TODO: update related topic and forum
     return HttpResponseRedirect(reverse("qishi.views_forum.display_forum", args=[forum.id]))
-    
+
 def category(request):
     ctx = {}
     ctx['categories'] = Category.objects.all()
