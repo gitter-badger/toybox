@@ -23,7 +23,7 @@
         <![endif]-->
     </head>
     
-    <body style="padding-top: 70px;">
+    <body>
 
         <nav class="navbar navbar-fixed-top navbar-default" id="top" role="banner">
             <div class="container">
@@ -68,8 +68,8 @@
                             <li><span class="nav navbar-text">Hello <a href="{% url 'accounts.views.profile' %}">{{ user.get_username }}</a> :)</span></li>
                             <li><a href="{% url 'accounts.views.user_logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                         {% else %}
-                            <li><a href="{% url 'accounts.views.user_register' %}"><span class="glyphicon glyphicon-user"></span> Sign up</a></li>
-                            <li><a href="{% url 'accounts.views.user_login' %}"><span class="glyphicon glyphicon-log-in"></span> login</a></li>
+                            <li><a href="{% url 'qishi.views_user.user_register' %}"><span class="glyphicon glyphicon-user"></span> Sign up</a></li>
+                            <li><a href="{% url 'qishi.views_user.user_login' %}"><span class="glyphicon glyphicon-log-in"></span> login</a></li>
                         {% endif %}        
                     </ul>
                 </div>

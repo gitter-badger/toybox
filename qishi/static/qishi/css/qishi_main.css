@@ -1,0 +1,32 @@
+#tb-forum-main {
+	
+}
+
+#tb-premain-bgimg-cycle {
+	width: 100%;
+	height: 100vh;
+	overflow: hidden;
+	position: relative;
+}
+
+#tb-premain-bgimg-cycle img{
+	width: 110%;
+	height: auto;
+	position:absolute;
+	z-index:1;
+}
+
+#tb-premain-bgimg-cycle img.active {
+	z-index: 3;
+}
+
+/* Forum */
+#tb-forum-sidebar {
+	padding: 0px;
+	padding-top: 15px;
+}
+
+#tb-forum-sidebar, #tb-forum-sidebar a{
+    padding-left:0px;
+}
+

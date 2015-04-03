@@ -1,21 +1,84 @@
 {% extends "qishi/base.html" %}
 
 {% load qishi_filters %}
+{% load staticfiles %}
 
 {% block title %}Welcome to Qishi{% endblock %}
 
 
+{% block header %}
+<link rel="stylesheet" href="{% static 'qishi/css/qishi_main.css' %}">
+{% endblock %}
+
+
 {% block body %}
-<div class="container">
-    <div class="jumbotron">
-    	<h1>Welcome to Qishi.</h1>
-    	<p>A Professional Career Development Club</p>
+<div class="container-fluid">
+	<div class="row" style="margin-bottom:20px;">
+		<div id="tb-premain-bgimg-cycle">
+			<img src="{% static 'qishi/img/bk_img_1.jpg' %}" class="active" />
+			<img src="{% static 'qishi/img/bk_img_2.jpg' %}" />
+			<img src="{% static 'qishi/img/bk_img_3.jpg' %}" />
+			<img src="{% static 'qishi/img/bk_img_4.jpg' %}" />
+			<img src="{% static 'qishi/img/bk_img_5.jpg' %}" />	
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="jumbotron">
+				<h1>hello</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<p>
+				zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
+				</p>
+			</div>
+			<div class="col-sm-4">
+				<p>
+				zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
+				</p>
+			</div>
+			<div class="col-sm-4">
+				<p>
+				zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
+				</p>
+			</div>
+		</div>
+	</div>
 </div>
+
+<div class="container-fluid" style="margin-top:70px; background-color:#CCCCCC;">
+    <div class="row">
+        xxx
+    </div>
+</div>
+
+
 {% endblock %}
 
 
 {% block footer_script %}
 <script type="text/javascript">
-    $( "#navitem-home" ).addClass("active")
+
+function cycleImages(){
+	var $active = $('#tb-bg-img-cycle .active');
+	var $next = ($active.next().length > 0) ? $active.next() : $('#tb-bg-img-cycle img:first');
+	$next.css('z-index',2);//move the next image up the pile
+	$active.fadeOut(1500,function(){//fade out the top image
+	$active.css('z-index',1).show().removeClass('active');//reset the z-index and unhide the image
+		$next.css('z-index',3).addClass('active');//make the next image the top one
+	});
+}
+
+$(document).ready(function(){
+
+    $( "#navitem-home" ).addClass("active");
+
+	// run every 7s
+	setInterval('cycleImages()', 7000);
+
+})
 </script>
 {% endblock %}
