@@ -2,7 +2,7 @@
 
 {% load qishi_filters %}
 {% load staticfiles %}
-
+{% block title %}Qishi - {{forum.name}}{% endblock %}
 {% block header %}
 <link rel="stylesheet" href="{% static 'qishi/css/qishi_main.css' %}">
 {% endblock %}
@@ -51,7 +51,7 @@
                             <th>ID</th>
                             <th>Title</th>
                             <th>Author</th>
-                            <th class="hidden-xs">Posted on</th>
+                            <th class="hidden-xs">Started at</th>
                             <th class="hidden-xs">Options</th>
                         </tr>
                     </thead>
@@ -68,11 +68,12 @@
                             <td><a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}">{{ topic.posted_by }}</a></td>
 
                             <!-- Date/Time -->
-                            <td class="hidden-xs"><span class="glyphicon glyphicon-time"></span> August 24, 2013 at 9:00 PM @TODO</td>
+                            <td class="hidden-xs"><span class="glyphicon glyphicon-time"></span> {{ topic.created_on|date:"Y-m-d H:i" }}</td>
 
                             <!-- Post Content -->
+                            {% if user.is_staff %}
                             <td class="hidden-xs"><a href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</a></td>
-
+                            {% endif %}
                          </tr>              
                         {% endfor %} <!-- topics -->
                     </tbody>

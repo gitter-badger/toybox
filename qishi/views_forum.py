@@ -31,6 +31,8 @@ def new_post(request,forum_id):
                         message=p.cleaned_data['message'], 
                         topic_post=topic_post)
             post.save()
+            topic.mainpost = post
+            topic.save()
                 
 
         return HttpResponseRedirect(reverse("qishi.views_forum.display_forum", args=[forum.id]))
@@ -73,6 +75,7 @@ def display_forum(request, forum_id):
 
     ctx = {}
     ctx['forum_id']   = forum_id
+    ctx['forum']      = forum
     ctx['topics']     = forum.topic_set.all()
     ctx['categories'] = Category.objects.all()
 
@@ -92,6 +95,30 @@ def delete_topic(request, topic_id):
     topic.delete()
     #TODO: update related topic and forum
     return HttpResponseRedirect(reverse("qishi.views_forum.display_forum", args=[forum.id]))
+
+@login_required
+def delete_post(request, post_id):
+    """Delete a post with 'post_id'. 
+    
+    If the post is the mainpost of a topic, replace the post message by a "delete" message.
+    """
+    post = get_object_or_404(Post, id=post_id)
+    topic = post.topic
+    #only a staff or the poster can delete the post
+    if not (request.user.is_staff or request.user.id == post.posted_by.id):
+        return HttpResponse('no right to delete this post') #@TODO @message framework
+    if post.topic_post:
+        post.message = "Deleted by %s. Originally posted by %s"\
+                         % (request.user.username,post.posted_by.username)
+        #change the posted_by to a superuser so that the original user cannot 
+        #edit the post anymore.
+        post.posted_by = User.objects.filter(is_superuser=True)[0]
+        post.save()
+    else:
+        post.delete()
+    #TODO: update related topic and forum: num_posts
+    return HttpResponseRedirect(reverse("qishi.views_forum.topic", args=[topic.id]))
+    
     
 def category(request):
     """ View function to show all forums grouped by categories.

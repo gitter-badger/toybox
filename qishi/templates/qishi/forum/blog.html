@@ -21,7 +21,7 @@
                 <p><span> Posted on {{blog.created_on}}</span></p>
                
                 <!-- Post Content -->
-                <p class="lead">@TODO</p>
+                <p class="lead">{{blog.mainpost.message|text_markdown|safe}}</p>
                 
              </div>
         </div>
