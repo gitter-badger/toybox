@@ -150,6 +150,17 @@ def edit_post(request, post_id):
         'edit' : True,
     })
     
+@login_required
+def like_topic(request, topic_id):
+    """like a topic.
+    """
+    topic = get_object_or_404(Topic, pk=topic_id)
+    topic.liked_by.add(request.user)
+    topic.num_likes += 1
+    topic.save()
+    
+    return HttpResponseRedirect(reverse("qishi.views_forum.topic", args=[topic.id]))
+    
 def category(request):
     """ View function to show all forums grouped by categories.
     """

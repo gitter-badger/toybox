@@ -37,6 +37,10 @@
                         <td>Opened by <a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}">{{ topic.posted_by }}</a> </td>
                         <td>{{ topic.num_likes }} likes  </td>
                         <td>{{ topic.num_views }} views  </td>
+                        <td> {% if user in topic.liked_by.all %} liked {% else %}
+                        <a href="{% url 'qishi.views_forum.like_topic' topic_id=topic.id %}">like</a>
+                        {% endif %}
+                        </td>
                         {% if user.is_staff %}
                             <td><a href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete the topic</a></td>
                         {% endif %}
