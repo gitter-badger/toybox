@@ -5,9 +5,13 @@
 {% block body %}
     
 <div class="container" style="margin-top: 70px;">
-
+    {% if edit %}
+    <form action="{% url 'qishi.views_forum.edit_post' post_id=post_id %}" method="POST">
+    {% else %}
     <form action="{% if topic_post %}{% url 'qishi.views_forum.new_post' forum_id=forum_id %}
                   {% else %}{% url 'qishi.views_forum.new_reply' topic_id=topic_id %}{% endif %}" method="POST">
+    {% endif %}
+    
         {% csrf_token %}
         <div class="form-group">
   	    {%if topic_post %}{{ form.subject}}{% endif %}

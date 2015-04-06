@@ -14,6 +14,7 @@ urlpatterns = patterns(
     url(r'^(?P<topic_id>\d+)/delete/$', 'qishi.views_forum.delete_topic', name='qishi_delete_topic'),
     url(r'^(?P<topic_id>\d+)/update_topic_attr_switch/(?P<attr>[\w-]+)/$', 'qishi.views_forum.update_topic_attr_switch'),
     url(r'^post(?P<post_id>\d+)/delete/$', 'qishi.views_forum.delete_post',name='qishi_delete_post'),
+    url(r'^post(?P<post_id>\d+)/edit/$', 'qishi.views_forum.edit_post',name='qishi_edit_post'),
     url(r'^blog/$','qishi.views_forum.blog'),
     url(r'^admin/', include(admin.site.urls)),
 

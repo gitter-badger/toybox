@@ -45,9 +45,15 @@
                     {% for post in posts %}
                     <tr>
                         <td>Posted by <a href="{% url 'accounts.views.profile' user_id=post.posted_by.pk %}">{{ post.posted_by }}</a> </td>
+                        <td>  {{ post.created_on }} </td>
                         {% if user.is_staff or user.id == post.posted_by.id %}
                             <td><a href="{% url 'qishi.views_forum.delete_post' post_id=post.id %}" onclick="return confirm('Do you want to delete it?')">Delete</a></td>
                         {% endif %}
+                        
+                        {% if user.id == post.posted_by.id %}
+                            <td><a href="{% url 'qishi.views_forum.edit_post' post_id=post.id %}"  >Edit</a></td>
+                        {% endif %}
+                        
                     </tr>
                         <tr>
                             <td colspan="3">{{ post.message|text_markdown|safe }}</td>

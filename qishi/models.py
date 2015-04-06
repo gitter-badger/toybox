@@ -118,7 +118,7 @@ class Post(models.Model):
 
     def subject(self):
         if self.topic_post:
-            return _('Topic: %s') % self.topic.subject
+            return _('%s') % self.topic.subject
         return _('Re: %s') % self.topic.subject
         
     @models.permalink

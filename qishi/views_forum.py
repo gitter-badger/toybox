@@ -5,11 +5,13 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 
 from markdown import markdown
 
 from qishi.models import Category, Forum, Topic, Post
-from qishi.forms_forum import NewPostForm, ReplyPostForm, QuickReplyPostForm
+from qishi.forms_forum import NewPostForm, ReplyPostForm,\
+     QuickReplyPostForm, EditPostForm
 
 
 @login_required
@@ -118,7 +120,35 @@ def delete_post(request, post_id):
         post.delete()
     #TODO: update related topic and forum: num_posts
     return HttpResponseRedirect(reverse("qishi.views_forum.topic", args=[topic.id]))
+
+@login_required
+def edit_post(request, post_id):
+    """edit a post.
+    """
+    edit_post = get_object_or_404(Post, id=post_id)
+    topic = edit_post.topic
+    if not (request.user.is_staff or request.user == edit_post.posted_by):
+        return HttpResponse( 'no right')    #@TODO @message framework
+        
+    if request.method == "POST":
+        p = EditPostForm( data = request.POST,instance=edit_post)
+        if p.is_valid():
+            if edit_post.topic_post:
+                topic.subject = p.cleaned_data['subject']
+            topic.save()
+            edit_post.message = p.cleaned_data['message']
+            edit_post.updated_on = datetime.now()
+            edit_post.save()
+                
+        return HttpResponseRedirect(reverse("qishi.views_forum.topic", args=[topic.id]))
     
+    form = EditPostForm(instance=edit_post)
+    return render(request, "qishi/forum/new_post.html", {
+        'form' : form,
+        'post_id' : edit_post.id,
+        'topic_post' : edit_post.topic_post,
+        'edit' : True,
+    })
     
 def category(request):
     """ View function to show all forums grouped by categories.
@@ -146,7 +176,7 @@ def update_topic_attr_switch(request, topic_id, attr):
     This function works as a switch. The attribute switches between True and False.
     """
     if not request.user.is_staff:
-        pass #@TODO
+        return HttpResponse( 'no right')    #@TODO @message framework
     topic = get_object_or_404(Topic, id=topic_id)
     if attr == 'sticky':
         topic.sticky = not topic.sticky
