@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .forms import UserLoginForm, UserRegisterForm
+from qishi.models import Category
 
 def user_login(request):
     if request.method == "POST":
@@ -77,4 +78,5 @@ def profile(request, user_id=None, template_name="accounts/profile.html"):
     view_only = view_user != request.user
     ext_ctx = {'view_user'      : view_user, 
                'view_only'      : view_only}
+    ext_ctx['categories'] = Category.objects.all()
     return render(request, template_name, ext_ctx)

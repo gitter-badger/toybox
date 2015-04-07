@@ -52,10 +52,15 @@
                             <th>Title</th>
                             <th>Author</th>
                             <th class="hidden-xs">Started at</th>
+                            {% if user.is_staff %}
                             <th class="hidden-xs">Options</th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>
+                    {% load pagination_tags %}
+                    {% autopaginate topics FORUM_PAGE_SIZE %}  
+                    {% paginate %}
                         {% for topic in topics %}
                         <tr>
                             <!-- ID -->
@@ -70,7 +75,7 @@
                             <!-- Date/Time -->
                             <td class="hidden-xs"><span class="glyphicon glyphicon-time"></span> {{ topic.created_on|date:"Y-m-d H:i" }}</td>
 
-                            <!-- Post Content -->
+                            <!-- Options -->
                             {% if user.is_staff %}
                             <td class="hidden-xs"><a href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</a></td>
                             {% endif %}
