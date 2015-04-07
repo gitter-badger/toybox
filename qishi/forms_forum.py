@@ -20,5 +20,13 @@ class ReplyPostForm(forms.ModelForm):
 
 class QuickReplyPostForm(ReplyPostForm):
 	message = forms.CharField(widget=forms.Textarea)
+	
+class EditPostForm(NewPostForm):
+    def __init__(self, *args, **kwargs):
+        super(EditPostForm, self).__init__(*args, **kwargs)
+        self.initial['subject'] = self.instance.subject()
+        self.initial['message'] = self.instance.message
+        if not self.instance.topic_post:
+            self.fields['subject'].required = False
         
     

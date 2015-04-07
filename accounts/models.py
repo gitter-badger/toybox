@@ -16,8 +16,9 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return self.user.username
 
-    #@TODO def get_total_posts(self):
-       
+    def get_total_posts(self):
+        return self.user.post_set.count()
+
     def get_absolute_url(self):
         return self.user.get_absolute_url()
 

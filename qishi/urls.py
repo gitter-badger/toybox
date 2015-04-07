@@ -12,7 +12,10 @@ urlpatterns = patterns(
     url(r'^forum(?P<forum_id>\d+)/$', 'qishi.views_forum.display_forum'),
     url(r'^(?P<topic_id>\d+)$','qishi.views_forum.topic'),
     url(r'^(?P<topic_id>\d+)/delete/$', 'qishi.views_forum.delete_topic', name='qishi_delete_topic'),
+    url(r'^(?P<topic_id>\d+)/like/$', 'qishi.views_forum.like_topic', name='qishi_like_topic'),
     url(r'^(?P<topic_id>\d+)/update_topic_attr_switch/(?P<attr>[\w-]+)/$', 'qishi.views_forum.update_topic_attr_switch'),
+    url(r'^post(?P<post_id>\d+)/delete/$', 'qishi.views_forum.delete_post',name='qishi_delete_post'),
+    url(r'^post(?P<post_id>\d+)/edit/$', 'qishi.views_forum.edit_post',name='qishi_edit_post'),
     url(r'^blog/$','qishi.views_forum.blog'),
     url(r'^admin/', include(admin.site.urls)),
 

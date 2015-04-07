@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     # User defined
     'imagekit',
     'django_bootstrap_markdown',
+    'pagination',
 
     # toybox applications
     'accounts',  # to be consistent with LOGIN_URL, LOGIN_REDIRECT_URL defaults, see below
@@ -60,6 +61,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'pagination.middleware.PaginationMiddleware',
 )
 
 ROOT_URLCONF = 'toybox.urls'
@@ -100,3 +102,21 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = 'media'
 MEDIA_URL = '/media/'
 
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.core.context_processors.request",
+    "django.contrib.messages.context_processors.messages",
+    
+    "djangohelper.context_processors.ctx_config",
+)
+
+CTX_CONFIG = {
+        'FORUM_PAGE_SIZE': 10,
+        'TOPIC_PAGE_SIZE': 10,
+        }

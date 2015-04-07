@@ -2,6 +2,7 @@ from django.db import models
 #Group Permission to be added later
 from django.contrib.auth.models import User, Group, Permission
 from django.utils.translation import ugettext_lazy as _
+from accounts.models import UserProfile
 
 
 
@@ -56,6 +57,10 @@ class Forum(models.Model):
             else:
                 return False
         return True
+    
+    def _count_nums_topic(self):
+        return self.topic_set.all().count()
+
 
 class Topic(models.Model):
     forum = models.ForeignKey(Forum, verbose_name=_('Forum'))
@@ -65,12 +70,16 @@ class Topic(models.Model):
     num_replies = models.PositiveSmallIntegerField(default=0)  
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(blank=True, null=True)
+    mainpost = models.ForeignKey('Post', verbose_name='Mainpost',
+                related_name='topics', blank=True, null=True)
 
     #Moderation features
     closed = models.BooleanField(default=False)
     sticky = models.BooleanField(default=False)
     is_blog = models.BooleanField(default=False)
     num_likes = models.IntegerField(default=0)
+    liked_by = models.ManyToManyField(User,blank=True, null=True,
+                        related_name='topics_liked')
 
     class Meta:
         ordering = ('created_on',) #TODO 
@@ -109,7 +118,7 @@ class Post(models.Model):
 
     def subject(self):
         if self.topic_post:
-            return _('Topic: %s') % self.topic.subject
+            return _('%s') % self.topic.subject
         return _('Re: %s') % self.topic.subject
         
     @models.permalink
