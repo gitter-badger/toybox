@@ -2,7 +2,14 @@
 
 .redbox {
 	border:#FF0000 3px solid;
+	background-color: #FF7777;
 }
+
+.bluebox {
+	border:#0000FF 3px solid;
+	background-color: #7777FF;
+}
+
 
 /* Basic Setup */
 .tb-small-center-box {

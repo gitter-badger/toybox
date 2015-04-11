@@ -75,7 +75,7 @@
                 <div class="panel-footer tb-topic-footer" style="padding:0px;">
                     <ul class="nav nav-pills" role="tablist">
                         <li role="presentation">
-                            <a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}"><span>Posted by</span> {{ topic.posted_by }}</a>
+                            <a href="{% url 'accounts.views.profile' user_id=topic.postedb_y.pk %}"><span>Posted by</span> {{ topic.posted_by }}</a>
                         </li>
                         <li role="presentation">
                             <a href="">{{ post.created_on }}</a>
@@ -93,7 +93,7 @@
                 </div>
 
             </div>
-            {% endfor %}
+            {% endfor %} <!-- for post in posts -->
 
             {% if user.is_authenticated %}
             <div  class="panel panel-default" role="reply">

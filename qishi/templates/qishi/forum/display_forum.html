@@ -35,48 +35,53 @@
     
     <!--Main Content -->
     <div class="col-sm-9">
-        <div class="row">
-            <a class="btn btn-primary btn-sm pull-right" style="display:inline-block;" href="{% url 'qishi.views_forum.new_post' forum_id=forum_id%}">New Post</a>
-        </div>
-        
-        <div class="row">
-            {% if topics %}    
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th class="hidden-xs">Started at</th>
-                        {% if user.is_staff %}
-                        <th class="hidden-xs">Options</th>
-                        {% endif %}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for topic in topics %}
-                    <tr>
-                        <!-- ID -->
-                        <td>{{ forloop.counter }}</td>
 
-                        <!-- Title -->
-                        <td><a href="{% url 'qishi.views_forum.topic' topic_id=topic.id %}">{{topic.subject}}</a></td>
+        <p style="text-align:right;">
+            <a class="btn btn-primary btn-sm" href="{% url 'qishi.views_forum.new_post' forum_id=forum_id%}">New Post</a>
+        </p>
 
-                        <!-- Author -->
-                        <td><a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}">{{ topic.posted_by }}</a></td>
+        <p>
+            <div class="panel panel-default">
+                {% if topics %}    
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th class="hidden-xs">Created at</th>
+                            {% if user.is_staff %}
+                            <th class="hidden-xs">Options</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for topic in topics %}
+                        <tr>
+                            <!-- ID -->
+                            <td>{{ forloop.counter }}</td>
 
-                        <!-- Date/Time -->
-                        <td class="hidden-xs"><span class="glyphicon glyphicon-time"></span> {{ topic.created_on|date:"Y-m-d H:i" }}</td>
+                            <!-- Title -->
+                            <td><a href="{% url 'qishi.views_forum.topic' topic_id=topic.id %}">{{topic.subject}}</a></td>
 
-                        <!-- Options -->
-                        {% if user.is_staff %}
-                        <td class="hidden-xs"><a href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</a></td>
-                        {% endif %}
-                     </tr>              
-                    {% endfor %} <!-- topics -->
-                </tbody>
-            </table>
+                            <!-- Author -->
+                            <td><a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}">{{ topic.posted_by }}</a></td>
 
+                            <!-- Date/Time -->
+                            <td class="hidden-xs"><span class="glyphicon glyphicon-time"></span> {{ topic.created_on|date:"Y-m-d H:i" }}</td>
+
+                            <!-- Options -->
+                            {% if user.is_staff %}
+                            <td class="hidden-xs"><a href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</a></td>
+                            {% endif %}
+                         </tr>              
+                        {% endfor %} <!-- topics -->
+                    </tbody>
+                </table>
+            </div>
+        </p>
+
+        <p>
             {% load pagination_tags %}
             {% autopaginate topics FORUM_PAGE_SIZE %}  
             {% paginate %}
@@ -84,7 +89,8 @@
             {% else %}
                 <p>There's no post yet</p>
             {% endif %}
-        </div>
+        </p>
+
     </div>
 
 </div>
@@ -97,15 +103,11 @@
 
 {% block footer_script %}
 <script type="text/javascript">
+$( document ).ready(function(){
+
     $( "#navitem-forum" ).addClass("active");
 
-    $('[data-toggle=offcanvas]').click(function() {
-        $(this).toggleClass('visible-xs text-center');
-        $(this).find('i').toggleClass('glyphicon-chevron-right glyphicon-chevron-left');
-        $('.row-offcanvas').toggleClass('active');
-        $('#tb-lg-menu').toggleClass('hidden-xs').toggleClass('visible-xs');
-        $('#tb-xs-menu').toggleClass('visible-xs').toggleClass('hidden-xs');
-        $('#tb-forum-sidebar').toggleClass("col-xs-11").toggleClass("col-xs-1")
-    });
+    
+});
 </script>
 {% endblock %}
