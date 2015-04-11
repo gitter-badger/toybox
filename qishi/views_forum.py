@@ -54,7 +54,7 @@ def new_reply(request, topic_id):
     forum = topic.forum 
     topic_post = False
     if request.method == "POST":
-        p = ReplyPostForm( data = request.POST)
+        p = ReplyPostForm( data = request.POST )
         if p.is_valid():
             
             post = Post(topic=topic, posted_by=request.user,
@@ -165,14 +165,6 @@ def like_topic(request, topic_id):
     topic.save()
     
     return HttpResponseRedirect(reverse("qishi.views_forum.topic", args=[topic.id]))
-    
-
-def category(request):
-    """ View function to show all forums grouped by categories.
-    """
-    ctx = {}
-    ctx['categories'] = Category.objects.all()
-    return render(request, "qishi/forum/categories.html", ctx)
 
 
 @login_required(login_url="/qishi/home/")
