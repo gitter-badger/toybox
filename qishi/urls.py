@@ -5,7 +5,7 @@ urlpatterns = patterns(
     '',
     url(r'^login/$', 'qishi.views_user.user_login'),
     url(r'^register/$', 'qishi.views_user.user_register'),
-    url(r'^categories/$', 'qishi.views_forum.category'),
+    #url(r'^categories/$', 'qishi.views_forum.category'),
     url(r'^markdown/', include('django_bootstrap_markdown.urls')),
     url(r'^forum(?P<forum_id>\d+)/new_post/$', 'qishi.views_forum.new_post'),
     url(r'^(?P<topic_id>\d+)/new_reply/$', 'qishi.views_forum.new_reply'),

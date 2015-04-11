@@ -14,7 +14,7 @@ from qishi.forms_forum import NewPostForm, ReplyPostForm,\
      QuickReplyPostForm, EditPostForm
 
 
-@login_required
+@login_required(login_url="/qishi/home/")
 def new_post(request,forum_id):
     '''New post in the forum with "forum_id".
     '''
@@ -44,7 +44,9 @@ def new_post(request,forum_id):
         'forum_id' : forum_id,
         'topic_post' : topic_post,
     })
-@login_required
+
+
+@login_required(login_url="/qishi/home/")
 def new_reply(request, topic_id):  
     '''New reply in the topic with "topic_id".
     '''
@@ -69,7 +71,8 @@ def new_reply(request, topic_id):
         'topic_post' : topic_post,
     })
 
-@login_required
+
+#@login_required(login_url="/qishi/home/")
 def display_forum(request, forum_id):
     """ view function for display a forum with 'forum_id'
     """
@@ -80,10 +83,11 @@ def display_forum(request, forum_id):
     ctx['forum']      = forum
     ctx['topics']     = forum.topic_set.all()
     ctx['categories'] = Category.objects.all()
-
-    return render(request, "qishi/forum/display_forum.html", ctx)
     
-@login_required
+    return render(request, "qishi/forum/display_forum.html", ctx)
+
+    
+@login_required(login_url="/qishi/home/")
 def delete_topic(request, topic_id):
     """Delete a topic with 'topic_id'. 
     
@@ -98,7 +102,8 @@ def delete_topic(request, topic_id):
     #TODO: update related topic and forum
     return HttpResponseRedirect(reverse("qishi.views_forum.display_forum", args=[forum.id]))
 
-@login_required
+
+@login_required(login_url="/qishi/home/")
 def delete_post(request, post_id):
     """Delete a post with 'post_id'. 
     
@@ -121,7 +126,7 @@ def delete_post(request, post_id):
     #TODO: update related topic and forum: num_posts
     return HttpResponseRedirect(reverse("qishi.views_forum.topic", args=[topic.id]))
 
-@login_required
+@login_required(login_url="/qishi/home/")
 def edit_post(request, post_id):
     """edit a post.
     """
@@ -150,7 +155,7 @@ def edit_post(request, post_id):
         'edit' : True,
     })
     
-@login_required
+@login_required(login_url="/qishi/home/")
 def like_topic(request, topic_id):
     """like a topic.
     """
@@ -161,6 +166,7 @@ def like_topic(request, topic_id):
     
     return HttpResponseRedirect(reverse("qishi.views_forum.topic", args=[topic.id]))
     
+
 def category(request):
     """ View function to show all forums grouped by categories.
     """
@@ -168,7 +174,8 @@ def category(request):
     ctx['categories'] = Category.objects.all()
     return render(request, "qishi/forum/categories.html", ctx)
 
-@login_required
+
+@login_required(login_url="/qishi/home/")
 def topic(request, topic_id, template_name="qishi/forum/topic.html"):
     """Display a topic with 'topic_id'.
     """
@@ -178,9 +185,11 @@ def topic(request, topic_id, template_name="qishi/forum/topic.html"):
     posts = topic.posts
     posts = posts.order_by('created_on').select_related()
     ext_ctx = {'topic': topic, 'posts': posts,'form' : QuickReplyPostForm,}
+    ext_ctx['categories'] = Category.objects.all()
     return render(request, template_name, ext_ctx)
     
-@login_required
+
+@login_required(login_url="/qishi/home/")
 def update_topic_attr_switch(request, topic_id, attr):
     """Update topic attribute 'attr' for a topic with 'topic_id'.
     

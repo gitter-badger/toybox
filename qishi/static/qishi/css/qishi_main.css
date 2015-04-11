@@ -1,36 +1,94 @@
-#tb-forum-main {
-	
+/* Debug */
+
+.redbox {
+	border:#FF0000 3px solid;
 }
 
-#tb-premain-content {
-	position: absolute;
+/* Basic Setup */
+.tb-small-center-box {
+	width: 200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.tb-max-height {
+	height: inherit;
+}
+
+.tb-vertical-center {
+	position: relative;
+  	top: 50%;
+  	transform: translateY(-50%);
+}
+
+
+#tb-premain-block {
 	left: 0px;
 	top:0px;
-	z-index: 10;
-    margin-top:100px;
+    margin-top: 0px;
     width: 100%;
-    text-align: center;
+    height: 50vh;
+    min-height: 300px;
+    position: relative;
+    overflow: hidden;
 }
 
-#tb-premain-bgimg-cycle {
+/* the login information shown on the front page */
+#tb-premain-content {
+	position: absolute;
+	align-items: center;
+	height:inherit;
+	width: 100%;
+	z-index: 5;
+}
+
+#tb-premain-content h1, 
+#tb-premain-content h2,
+#tb-premain-content h3,
+#tb-premain-content h4, 
+#tb-premain-content h5 {
+	color: #FFFFFF;
+	
+	text-align: center;
+}
+
+#tb-premain-welcome-text {
+	position: relative;
+	top: 50%;
+	transform: transformY(-50%);
+}
+
+
+
+/* The background image show on the front page */
+#tb-premain-bg-img {
 	width: 100%;
 	display: block;
 	overflow: hidden;
-	position: relative;
+	/*position:absolute;*/
 	margin-top: 0px;
 }
 
-#tb-premain-bgimg-cycle img{
+#tb-premain-bg-img img{
 	background-size:cover;
-	wdith: 120%;
+	width: 120%;
 	height: auto;
 	position:absolute;
 	overflow: hidden;
 	z-index:1;
 }
 
-#tb-premain-bgimg-cycle img.active {
+#tb-premain-bg-img img.active {
 	z-index: 3;
+}
+
+#tb-premain-mask {
+	background-color: #000000;
+	opacity: 0.25;
+	position: absolute;
+	z-index: 4;
+	height: inherit;
+	width: inherit;
 }
 
 /* Forum */
@@ -43,3 +101,112 @@
     padding-left:0px;
 }
 
+
+/* Login form */
+.tb-form-signin #inputEmail,
+.tb-form-signin #inputPassword {
+    direction: ltr;
+    height: 34px;
+    font-size: 14px;
+}
+
+.tb-form-signin input[type=email],
+.tb-form-signin input[type=password],
+.tb-form-signin input[type=text],
+.tb-form-signin button {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+    position: relative;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.tb-form-signin .tb-form-control:focus {
+    border-color: rgb(104, 145, 162);
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+}
+
+
+.tb-grey-to-bright-when-hover {
+	background-color: #666666;
+}
+
+.tb-grey-to-bright-when-hover:hover {
+	-webkit-transition: background-color 0.3s ease-out;
+	-moz-transition: background-color 0.3s ease-out;
+	-ms-transition: background-color 0.3s ease-out;
+	-o-transition: background-color 0.3s ease-out;
+	transition: background-color 0.3s ease-out;
+	background-color: #FFFFFF;
+}
+
+
+/* Forum */
+/* Forum sidebar */
+.tb-docs-sidebar {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* all links */
+.tb-docs-sidebar .nav>li>a {
+    color: #999;
+    border-left: 2px solid transparent;
+    padding: 4px 20px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+/* nested links */
+.tb-docs-sidebar .nav .nav>li>a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 30px;
+    font-size: 14px;
+}
+
+/* active & hover links */
+.tb-docs-sidebar .nav>.active>a, 
+.tb-docs-sidebar .nav>li>a:hover, 
+.tb-docs-sidebar .nav>li>a:focus {
+    color: #563d7c;                 
+    text-decoration: none;          
+    background-color: transparent;  
+    border-left-color: #563d7c; 
+}
+
+/* all active links */
+.tb-docs-sidebar .nav>.active>a, 
+.tb-docs-sidebar .nav>.active:hover>a,
+.tb-docs-sidebar .nav>.active:focus>a {
+    font-weight: 700;
+}
+/* nested active links */
+.tb-docs-sidebar .nav .nav>.active>a, 
+.tb-docs-sidebar .nav .nav>.active:hover>a,
+.tb-docs-sidebar .nav .nav>.active:focus>a {
+    font-weight: 500;
+}
+
+
+
+.tb-topic-footer>ul>li {
+	padding: 0px;
+	margin: 0px;
+}
+
+.tb-topic-sm-control-box,
+.tb-topic-sm-control-box>ul, 
+.tb-topic-sm-control-box>ul>li, 
+.tb-topic-sm-control-box>ul>li>a {
+	padding: 0px;
+	margin: 0px;
+}

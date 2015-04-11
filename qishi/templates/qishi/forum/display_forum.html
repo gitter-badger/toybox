@@ -2,7 +2,9 @@
 
 {% load qishi_filters %}
 {% load staticfiles %}
+
 {% block title %}Qishi - {{forum.name}}{% endblock %}
+
 {% block header %}
 <link rel="stylesheet" href="{% static 'qishi/css/qishi_main.css' %}">
 {% endblock %}
@@ -11,82 +13,77 @@
 <!-- Page Content -->
 <div class="container" style="margin-top:70px;" id="tb-forum-main">
 
-    <div class="row row-offcanvas row-offcanvas-left">
-        <!-- Blog Post Content Column -->
-        <div class="column col-sm-3 col-md-2 col-xs-1 sidebar-offcanvas" id="tb-forum-sidebar">
-        
-            <ul class="nav">
-                <li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
-            </ul>
-
-            <ul class="nav hidden-xs" id="tb-lg-menu">
-                {% for category in categories %}
-                    <li><span class="nav nav-text">{{ category.name }}</span></li>
+    <!--Nav Bar -->
+    <nav class="col-sm-3 tb-docs-sidebar">
+        <ul id="sidebar" class="nav nav-stacked fixed">
+            {% for category in categories %}
+            <li>
+                <a href="#">{{ category.name }}</span></a>
+                <ul class="nav nav-stacked">
                     {% for forum in category.forum_set.all %}
-                    <li><a href="{% url 'qishi.views_forum.display_forum' forum_id=forum.id%}">{{ forum.name }}</a></li>
+                    <li>
+                        <a href="{% url 'qishi.views_forum.display_forum' forum_id=forum.id%}">
+                            {{ forum.name }}
+                        </a>
+                    </li>
                     {% endfor %}
-                {% endfor %}
-            </ul>
-
-            <ul class="nav visible-xs" id="tb-xs-menu">
-                {% for category in categories %}
-                    <li><a href="#"><span class="hidden-xs"></span> </a></li>  
-                {% endfor %}
-            </ul>
-
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    
+    <!--Main Content -->
+    <div class="col-sm-9">
+        <div class="row">
+            <a class="btn btn-primary btn-sm pull-right" style="display:inline-block;" href="{% url 'qishi.views_forum.new_post' forum_id=forum_id%}">New Post</a>
         </div>
+        
+        <div class="row">
+            {% if topics %}    
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th class="hidden-xs">Started at</th>
+                        {% if user.is_staff %}
+                        <th class="hidden-xs">Options</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for topic in topics %}
+                    <tr>
+                        <!-- ID -->
+                        <td>{{ forloop.counter }}</td>
 
-                
-        <div class="column col-sm-9 col-md-10 col-xs-11">
+                        <!-- Title -->
+                        <td><a href="{% url 'qishi.views_forum.topic' topic_id=topic.id %}">{{topic.subject}}</a></td>
 
-            <div class="row">
-                <a class="btn btn-primary btn-sm pull-right" href="{% url 'qishi.views_forum.new_post' forum_id=forum_id%}">New Post</a>
-            </div>
-            
-            <div class="row">
-                {% if topics %}    
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Author</th>
-                            <th class="hidden-xs">Started at</th>
-                            {% if user.is_staff %}
-                            <th class="hidden-xs">Options</th>
-                            {% endif %}
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% load pagination_tags %}
-                    {% autopaginate topics FORUM_PAGE_SIZE %}  
-                    {% paginate %}
-                        {% for topic in topics %}
-                        <tr>
-                            <!-- ID -->
-                            <td>{{ forloop.counter }}</td>
+                        <!-- Author -->
+                        <td><a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}">{{ topic.posted_by }}</a></td>
 
-                            <!-- Title -->
-                            <td><a href="{% url 'qishi.views_forum.topic' topic_id=topic.id %}">{{topic.subject}}</a></td>
+                        <!-- Date/Time -->
+                        <td class="hidden-xs"><span class="glyphicon glyphicon-time"></span> {{ topic.created_on|date:"Y-m-d H:i" }}</td>
 
-                            <!-- Author -->
-                            <td><a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}">{{ topic.posted_by }}</a></td>
+                        <!-- Options -->
+                        {% if user.is_staff %}
+                        <td class="hidden-xs"><a href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</a></td>
+                        {% endif %}
+                     </tr>              
+                    {% endfor %} <!-- topics -->
+                </tbody>
+            </table>
 
-                            <!-- Date/Time -->
-                            <td class="hidden-xs"><span class="glyphicon glyphicon-time"></span> {{ topic.created_on|date:"Y-m-d H:i" }}</td>
+            {% load pagination_tags %}
+            {% autopaginate topics FORUM_PAGE_SIZE %}  
+            {% paginate %}
 
-                            <!-- Options -->
-                            {% if user.is_staff %}
-                            <td class="hidden-xs"><a href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</a></td>
-                            {% endif %}
-                         </tr>              
-                        {% endfor %} <!-- topics -->
-                    </tbody>
-                </table>
-                {% else %}
-                    <p>There's no post yet</p>
-                {% endif %}
-            </div>
+            {% else %}
+                <p>There's no post yet</p>
+            {% endif %}
         </div>
     </div>
 

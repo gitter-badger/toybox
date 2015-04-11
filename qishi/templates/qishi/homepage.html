@@ -15,66 +15,76 @@
 
 <div class="container-fluid">
 
-	<div class="row" style="margin-bottom:15px;">
-		<div id="tb-premain-content">	
-			<div class="container" style="text-align:left">
-				<div class="row">
-					<div class="col-sm-6"></div>
-					<div class="col-sm-6">
-						<form>
-							<label for="username">Name:</label>
-							<input type="text" id="username" /><br />
-							<label for="password">Password:</label>
-							<input type="password" id="password" />
-						</form>
-					</div>
+	<div class="row">
+		<div id="tb-premain-block">
+			<div id="tb-premain-content" class="tb-max-height">	
+				<div class="tb-vertical-center">
+					<h1>Welcome to Qi Shi</h1>
+					<h2>欢迎来到琪石</h2>
+					{% if not user.is_authenticated %}
+					<div class="tb-small-center-box">
+	 					
+	 					<form id="login" class="tb-form-signin" action="{% url 'qishi.views_user.user_login' %}" method="post">
+							<span id="reauth-email" class="reauth-email"></span>
+							{% csrf_token %}
+							{{ login_form.username }}
+							{{ login_form.password }}
+							<button class="btn btn-sm btn-primary btn-block btn-signin" type="submit">Log in</button>
+						    <h5 style="text-align:right;"><span style="text-decoration:underline;cursor:pointer;cursor:hand;" onclick="LoginRegisterSwitch();return false;">Signup</span></h5>
+	            		</form> 
+
+	            		
+	            		<form id="signup" class="tb-form-signin"  action="{% url 'qishi.views_user.user_register' %}" method="post">
+	                		<span id="reauth-email" class="reauth-email"></span>
+	                		{% csrf_token %}
+	                		{{ register_form.username }}
+	                		{{ register_form.email }}
+							{{ register_form.password }}
+							<button class="btn btn-sm btn-success btn-block btn-signin" type="submit">Sign up</button>
+							<h5 style="text-align:right;"><span style="text-decoration:underline;cursor:pointer;cursor:hand;" onclick="LoginRegisterSwitch();return false;">Login</span></h5>
+	            		</form> 
+
+	            	</div>
+	            	{% endif %}
 				</div>
 			</div>
-		</div>
-		<div id="tb-premain-bgimg-cycle">
-			<img src="{% static 'qishi/img/bk_img_1.jpg' %}" class="active" />
-			<img src="{% static 'qishi/img/bk_img_2.jpg' %}" />
-			<img src="{% static 'qishi/img/bk_img_3.jpg' %}" />
-			<img src="{% static 'qishi/img/bk_img_4.jpg' %}" />
-			<img src="{% static 'qishi/img/bk_img_5.jpg' %}" />	
+		
+			<div id="tb-premain-bg-img" class="tb-max-height">
+				<div id="tb-premain-mask" class="tb-max-height"></div>
+				<img src="{% static 'qishi/img/bk_img_1.jpg' %}" class="active" />
+				<img src="{% static 'qishi/img/bk_img_2.jpg' %}" />
+				<img src="{% static 'qishi/img/bk_img_3.jpg' %}" />
+				<img src="{% static 'qishi/img/bk_img_4.jpg' %}" />
+				<img src="{% static 'qishi/img/bk_img_5.jpg' %}" />	
+			</div>
 		</div>
 	</div>
+</div>
 
-	<div class="container">
-		<div class="row">
-			<div class="jumbotron">
-				<h1>Welcome to Qishi</h1>
-				<p>A professional career development club</p>
-			</div>
+<div class="container" style="height:25px;"></div>
+
+<div class="container">	
+	<div class="row">
+		<div class="col-xs-12 col-sm-4">
+			<p>
+			zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
+			zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
+			zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
+			</p>
 		</div>
-		<div class="row">
-			<div class="col-sm-4">
-				<p>
-				zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
-				zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
-				zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
-				zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
-				zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
-				</p>
-			</div>
-			<div class="col-sm-4">
-				<p>
-				zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
-				zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
-				zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
-				zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
-				zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
-				</p>
-			</div>
-			<div class="col-sm-4">
-				<p>
-				zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
-				zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
-				zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
-				zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
-				zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
-				</p>
-			</div>
+		<div class="col-xs-12 col-sm-4">
+			<p>
+			zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
+			zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
+			zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
+			</p>
+		</div>
+		<div class="col-xs-12 col-sm-4">
+			<p>
+			zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
+			zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
+			zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz zzz 
+			</p>
 		</div>
 	</div>
 </div>
@@ -87,30 +97,37 @@
 {% block footer_script %}
 <script type="text/javascript">
 
+function LoginRegisterSwitch() {
+	$( "#login" ).toggle();
+	$( "#signup" ).toggle();
+}
+
 function cycleImages(){
-	var $active = $('#tb-premain-bgimg-cycle .active');
-	var $next = ($active.next().length > 0) ? $active.next() : $('#tb-premain-bgimg-cycle img:first');
+	var $active = $('#tb-premain-bg-img .active');
+	var $next = ($active.next().length > 0) ? $active.next() : $('#tb-premain-bg-img img:first');
 	$next.css('z-index',2);//move the next image up the pile
 	$active.fadeOut(1500,function(){//fade out the top image
-	$active.css('z-index',1).show().removeClass('active');//reset the z-index and unhide the image
+		$active.css('z-index',1).show().removeClass('active');//reset the z-index and unhide the image
 		$next.css('z-index',3).addClass('active');//make the next image the top one
 	});
 }
 
 $(document).ready(function(){
+	$( "body" ).css("height", "100vh");
+	$( "#signup" ).toggle();
 
     $( "#navitem-home" ).addClass("active");
 
-    $( "#tb-premain-bgimg-cycle" ).css("height", $( window ).height());
+    //$( "#tb-premain-bg-img" ).css("height", $( window ).height());
 
 	// run every 7s
-	setInterval('cycleImages()', 7000);
+	setInterval('cycleImages()', 3000);
 
 })
 
-$( window ).resize(function() {
-    $( "#tb-premain-bgimg-cycle" ).css("height", $( window ).height());
-});
+//$( window ).resize(function() {
+//    $( "#tb-premain-bg-img" ).css("height", $( window ).height());
+//});
 
 </script>
 {% endblock %}

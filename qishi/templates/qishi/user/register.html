@@ -2,15 +2,24 @@
 {% extends "qishi/base.html" %}
 
 {% load qishi_filters %}
+{% load staticfiles %}
+
+{% block header %}
+<link rel="stylesheet" href="{% static 'qishi/css/qishi_main.css' %}">
+{% endblock %}
 
 {% block body %}
 <div class="container" style="margin-top: 70px">
 	<div class="row">
-		<form action="{% url 'qishi.views_user.user_register' %}" method="post">
-		    {% csrf_token %}
-		    {{ form }}
-		    <input type="submit" value="Submit">
-		</form>
+		<div class="tb-small-center-box">
+			<form action="{% url 'qishi.views_user.user_register' %}" method="post" class="tb-form-signin">
+			    {% csrf_token %}
+			    {{ form.username }}
+			    {{ form.email }}
+			    {{ form.password }}
+			    <button class="btn btn-sm btn-primary btn-block btn-signin" type="submit">Log in</button>
+			</form>
+		</div>
 	</div>
 </div>
 {% endblock %}
