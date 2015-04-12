@@ -56,6 +56,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                    {% load pagination_tags %}
+            		{% autopaginate topics FORUM_PAGE_SIZE %}  
+            		{% paginate %}
                         {% for topic in topics %}
                         <tr>
                             <!-- ID -->
@@ -82,9 +85,7 @@
         </p>
 
         <p>
-            {% load pagination_tags %}
-            {% autopaginate topics FORUM_PAGE_SIZE %}  
-            {% paginate %}
+            
 
             {% else %}
                 <p>There's no post yet</p>
