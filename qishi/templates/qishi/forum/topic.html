@@ -39,7 +39,7 @@
 
         <div class="row">
 
-            {% for post in posts %}                      
+                                
             <div class="panel panel-primary" style="overflow:hidden;position:relative">
                 <!-- Topic Heading -->
                 <div class="panel-heading">
@@ -47,15 +47,16 @@
                         <span class="glyphicon glyphicon-bookmark"></span> {{topic.subject}}
                     </h3>
                 </div>
-
+				<!-- Topic attributes -->
                 <div class=".tb-topic-sm-control-box">
-                    <ul class="nav nav-pills" style="padding:0px">
+                    <ul class="nav nav-pills" style="padding:0px">                	
+                    	<!-- delete topic button -->
                         {% if user.is_staff or user.id == post.posted_by.id %}
                         <li class="pull-right" style="padding:0px;margin-right:10px">
                             <a style="padding:0px" href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</a>
                         </li>
                         {% endif %}
-
+						<!-- set blog button -->
                         {% if user.is_staff %}
                         <li class="pull-right" style="padding:0px;margin-right:10px">
                             <a style="padding:0px" href="{% url 'qishi.views_forum.update_topic_attr_switch' topic_id=topic.id attr='is_blog' %}">
@@ -63,37 +64,58 @@
                             </a>  
                         </li>
                         {% endif %}
-                    </ul>
-                </div>
-
-                <!-- Topic Content -->
-                <div class="panel-body" style="position:relative">
-                   {{ post.message|text_markdown|safe }}
-                </div>
-
-                <!-- Topic Footer -->
-                <div class="panel-footer tb-topic-footer" style="padding:0px;">
-                    <ul class="nav nav-pills" role="tablist">
-                        <li role="presentation">
-                            <a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}"><span>Posted by</span> {{ topic.posted_by }}</a>
-                        </li>
-                        <li role="presentation">
-                            <a href="">{{ post.created_on }}</a>
+                        <!-- like button -->
+                        <li role="presentation" class="pull-right">
+                        {% if user in topic.liked_by.all %} <a href="#">Liked</a> {% else %}
+                        <a href="{% url 'qishi.views_forum.like_topic' topic_id=topic.id %}">Like </a>
+                        {% endif %}
                         </li>
                         
-                        {% if user in topic.liked_by.all %} liked {% else %}
+                        <!-- number of likes -->
                         <li role="presentation" class="pull-right">
-                            <a href="#">Likes <span class="badge">{{ topic.num_likes }}</span></a>
+                           <a href="#"> Likes <span class="badge">{{ topic.num_likes }}</span></a>
                         </li>
-                        {% endif %}
+                        
+                        <!-- number of views -->
                         <li role="presentation" class="pull-right">
                             <a href="#">Views <span class="badge">{{ topic.num_views }}</span></a>
                         </li>
                     </ul>
                 </div>
+			{% for post in posts %}  
+                <!-- Post Content -->
+                <div class="panel-body" style="position:relative">
+                   {{ post.message|text_markdown|safe }}
+                </div>
 
+                <!-- Post Footer -->
+                <div class="panel-footer tb-topic-footer" style="padding:0px;">
+                    <ul class="nav nav-pills" role="tablist">
+                        <li role="presentation">
+                            <a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}"><span>Posted by</span> {{ post.posted_by }}</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="">{{ post.created_on }}</a>
+                        </li>
+                        <!-- delete post button -->
+                         {% if user.is_staff or user.id == post.posted_by.id %}
+                         <li role="presentation" class="pull-right">
+                            <a href="{% url 'qishi.views_forum.delete_post' post_id=post.id %}" onclick="return confirm('Do you want to delete it?')">Delete</a>
+                        </li>
+                        {% endif %}
+                        <!-- edit post button -->
+                        
+                        {% if user.id == post.posted_by.id %}
+                    	<li role="presentation" class="pull-right">
+                            <a href="{% url 'qishi.views_forum.edit_post' post_id=post.id %}"  >Edit</a>
+                        </li>
+                        {% endif %}
+                        
+                    </ul>
+                </div>
+			{% endfor %} <!-- for post in posts -->
             </div>
-            {% endfor %} <!-- for post in posts -->
+             
 
             {% if user.is_authenticated %}
             <div  class="panel panel-default" role="reply">
