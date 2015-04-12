@@ -155,16 +155,6 @@ def edit_post(request, post_id):
         'edit' : True,
     })
     
-@login_required(login_url="/qishi/home/")
-def like_topic(request, topic_id):
-    """like a topic.
-    """
-    topic = get_object_or_404(Topic, pk=topic_id)
-    topic.liked_by.add(request.user)
-    topic.num_likes += 1
-    topic.save()
-    
-    return HttpResponseRedirect(reverse("qishi.views_forum.topic", args=[topic.id]))
 
 @login_required(login_url="/qishi/home/")
 def like_topic_switch(request, topic_id):
