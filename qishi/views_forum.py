@@ -166,6 +166,22 @@ def like_topic(request, topic_id):
     
     return HttpResponseRedirect(reverse("qishi.views_forum.topic", args=[topic.id]))
 
+@login_required(login_url="/qishi/home/")
+def like_topic_switch(request, topic_id):
+	""" like a topic if the user is not in the liked_by list. Otherwise, unlike the topic.
+	"""
+	topic = get_object_or_404(Topic, pk=topic_id)
+	if request.user in topic.liked_by.all() :
+		topic.liked_by.remove(request.user)
+		topic.num_likes -= 1
+		topic.save()
+	else:
+		topic.liked_by.add(request.user)
+		topic.num_likes += 1
+		topic.save()
+	
+	return HttpResponseRedirect(reverse("qishi.views_forum.topic", args=[topic.id]))
+	
 
 @login_required(login_url="/qishi/home/")
 def topic(request, topic_id, template_name="qishi/forum/topic.html"):

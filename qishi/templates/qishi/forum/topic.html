@@ -39,8 +39,10 @@
 
         <div class="row">
 
-                                
+            {% for post in posts %}                     
             <div class="panel panel-primary" style="overflow:hidden;position:relative">
+            	<!-- topic post header -->
+            	{% if post.topic_post %}
                 <!-- Topic Heading -->
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -64,16 +66,11 @@
                             </a>  
                         </li>
                         {% endif %}
-                        <!-- like button -->
+                        <!-- like button and the number of likes -->
                         <li role="presentation" class="pull-right">
-                        {% if user in topic.liked_by.all %} <a href="#">Liked</a> {% else %}
-                        <a href="{% url 'qishi.views_forum.like_topic' topic_id=topic.id %}">Like </a>
+                        {% if user in topic.liked_by.all %} <a href="{% url 'qishi.views_forum.like_topic_switch' topic_id=topic.id %}"> Unlike <span class="badge">{{ topic.num_likes }}</span></a> {% else %}
+                        <a href="{% url 'qishi.views_forum.like_topic_switch' topic_id=topic.id %}"> Like <span class="badge">{{ topic.num_likes }}</span></a>
                         {% endif %}
-                        </li>
-                        
-                        <!-- number of likes -->
-                        <li role="presentation" class="pull-right">
-                           <a href="#"> Likes <span class="badge">{{ topic.num_likes }}</span></a>
                         </li>
                         
                         <!-- number of views -->
@@ -82,7 +79,8 @@
                         </li>
                     </ul>
                 </div>
-			{% for post in posts %}  
+                {% endif %}
+			 
                 <!-- Post Content -->
                 <div class="panel-body" style="position:relative">
                    {{ post.message|text_markdown|safe }}
@@ -113,9 +111,9 @@
                         
                     </ul>
                 </div>
-			{% endfor %} <!-- for post in posts -->
+			
             </div>
-             
+            {% endfor %} <!-- for post in posts --> 
 
             {% if user.is_authenticated %}
             <div  class="panel panel-default" role="reply">
