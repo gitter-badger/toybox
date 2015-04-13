@@ -39,7 +39,8 @@ INSTALLED_APPS = (
 
     # User defined
     'imagekit',
-    'django_bootstrap_markdown',
+    #'django_bootstrap_markdown',
+    'bootstrap_markdown',  #bootstrap-markdown-editor
     'pagination',
 
     # toybox applications

@@ -53,14 +53,14 @@
                 <div class=".tb-topic-sm-control-box">
                     <ul class="nav nav-pills" style="padding:0px">                	
                     	<!-- delete topic button -->
-                        {% if user.is_staff or user.id == post.posted_by.id %}
-                        <li class="pull-right" style="padding:0px;margin-right:10px">
-                            <a style="padding:0px" href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</a>
+                        {% if user.is_staff%}
+                        <li class="pull-left" style="padding:0px;margin-left:10px">
+                            <a style="padding:0px" href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')"><span>Delete</span></a>
                         </li>
                         {% endif %}
 						<!-- set blog button -->
                         {% if user.is_staff %}
-                        <li class="pull-right" style="padding:0px;margin-right:10px">
+                        <li class="pull-left" style="padding:0px;margin-left:10px">
                             <a style="padding:0px" href="{% url 'qishi.views_forum.update_topic_attr_switch' topic_id=topic.id attr='is_blog' %}">
                             {% if topic.is_blog %} unset blog {% else %} set blog {% endif %}
                             </a>  

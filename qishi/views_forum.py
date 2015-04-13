@@ -95,8 +95,8 @@ def delete_topic(request, topic_id):
     """
     topic = get_object_or_404(Topic, id=topic_id)
     forum = topic.forum
-    #only a staff or the poster can delete the post
-    if not (request.user.is_staff or request.user.id == topic.posted_by.id):
+    #only a staff can delete the whole topic, the poster cannot.
+    if not (request.user.is_staff):
         return HttpResponse('no right to delete this post') #@TODO @message framework
     topic.delete()
     #TODO: update related topic and forum
