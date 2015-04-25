@@ -1,0 +1,30 @@
+Babel==1.3        # ok
+Django==1.7.4     # 1.8.0
+Jinja2==2.7.3     # ok
+Markdown==2.5.2   # ok
+MarkupSafe==0.23  # ok
+Pillow==2.7.0     # ok
+Pygments==2.0.2   # ok
+South==1.0.2      # ok
+Sphinx==1.3       # global
+alabaster==0.7.2  # ok
+dj-static==0.0.6  # ok
+django-appconf==1.0.1                 # www
+django-bootstrap-markdown==1.8.1
+django-bootstrap-markdown-editor==1.1 # www
+django-helper==0.8.4
+django-imagekit==3.2.5            # www
+django-lb-attachments==0.8.3
+django-onlineuser==0.8.7
+django-pagedown==0.1.0
+django-pagination-py3==1.1.1      # www
+django-registration==1.0
+django-simple-captcha==0.4.4
+docutils==0.12
+gunicorn==19.2.1
+pilkit==1.1.12    # ok
+pytz==2014.10
+six==1.9.0
+snowballstemmer==1.2.0
+sphinx-rtd-theme==0.1.7
+static3==0.5.1
