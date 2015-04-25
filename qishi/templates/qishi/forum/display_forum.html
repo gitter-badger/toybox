@@ -1,0 +1,126 @@
+{% extends "qishi/base.html" %}
+
+{% load qishi_filters %}
+{% load staticfiles %}
+
+{% block title %}Qishi - {{forum.name}}{% endblock %}
+
+{% block header %}
+<link rel="stylesheet" href="{% static 'qishi/css/qishi_main.css' %}">
+<link rel="stylesheet" href="{% static 'qishi/css/qishi_forum.css' %}">
+{% endblock %}
+
+{% block body %}
+<!-- Background Shade -->
+<div id="background" style="background-image:url({% static 'qishi/img/forum_bk.jpg' %});"></div>
+<div id="background-shade"></div>
+
+<!-- Page Content -->
+<div class="container" style="margin-top:65px;min-height:500px;opacity: 0.95;" id="tb-forum-main">
+
+    <!--Nav Bar -->
+    <div class="col-sm-3" style="padding:5px">
+
+            <nav class="thumbnail">
+                    <ul class="nav nav-stacked fixed">
+                        {% for category in categories %}
+                        <li>
+                            <a href="#"><b>{{ category.name }}</b></a>
+                            <ul class="nav nav-pills nav-stacked">
+                                {% for forum in category.forum_set.all %}
+                                <li role="presentation">
+                                    <a href="{% url 'qishi.views_forum.display_forum' forum_id=forum.id%}">
+                                        {{ forum.name }}
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        {% endfor %}
+                    </ul>
+            </nav>
+
+    </div>
+    
+    <!--Main Content -->
+    <div class="col-sm-9" style="padding:5px">
+        <div class="panel panel-default" style="padding:10px;min-height:85vh;">
+        {% if topics %}    
+            <div style="float:left;line-height:1.42857143">
+                <a class="btn btn-primary btn-sm" href="{% url 'qishi.views_forum.new_post' forum_id=forum_id%}"
+                   style="margin:20px 0;">
+                    New Post
+                </a>
+            </div>
+            <div style="float:right;">
+                {% load pagination_tags %}
+                {% autopaginate topics FORUM_PAGE_SIZE %}  
+                {% paginate %}
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th class="hidden-xs">Created at</th>
+                        {% if user.is_staff %}
+                        <th class="hidden-xs">Options</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for topic in topics %}
+                    <tr>
+                        <!-- ID -->
+                        {% comment %}
+                            <td>{{ forloop.counter }}</td>
+                        {% endcomment %}
+                        <td><span class="glyphicon glyphicon-file"></span></td>
+                        <!-- Title -->
+                        <td><a href="{% url 'qishi.views_forum.topic' topic_id=topic.id %}">{{topic.subject}}</a></td>
+
+                        <!-- Author -->
+                        <td>
+                            <a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}">{{ topic.posted_by }}</a>
+                        </td>
+
+                        <!-- Date/Time -->
+                        <td class="hidden-xs"><span class="glyphicon glyphicon-time"></span> {{ topic.created_on|date:"SHORT_DATETIME_FORMAT" }}</td>
+
+                        <!-- Options -->
+                        {% if user.is_staff %}
+                        <td class="hidden-xs"><a href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</a></td>
+                        {% endif %}
+                     </tr>              
+                     {% endfor %} <!-- topics -->
+                     <tr>
+                        <td></td><td></td><td></td><td></td>
+                        {% if user.is_staff %}<td></td>{% endif %}
+                     </tr>
+                </tbody>
+            </table>
+        {% else %}
+            <p>There's no post yet</p>
+        {% endif %}
+        </div>
+    </div>
+
+</div>
+
+<!-- (@ToDo) the page import django_bootstrap_markdown.css as hard coded html, should use static -->
+<link href="/static/css/django_bootstrap_markdown.css" type="text/css" media="all" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block footer_script %}
+<script type="text/javascript">
+$( document ).ready(function(){
+
+    $( "#navitem-forum" ).addClass("active");
+
+    
+});
+</script>
+{% endblock %}
