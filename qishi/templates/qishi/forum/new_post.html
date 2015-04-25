@@ -1,0 +1,46 @@
+{% extends "qishi/base.html" %}
+
+{% load qishi_filters %}
+{% load staticfiles %}
+
+{% block header %}
+<link rel="stylesheet" href="{% static 'qishi/css/qishi_main.css' %}">
+<link rel="stylesheet" href="{% static 'qishi/css/qishi_forum.css' %}">
+{% endblock %}
+
+{% block body %}
+<!-- Background Shade -->
+<div id="background" style="background-image:url({% static 'qishi/img/forum_bk.jpg' %});"></div>
+<div id="background-shade"></div>
+    
+<div class="container" style="margin-top: 70px;opacity: 0.95;">
+    <div class="row thumbnail" style="padding:5px;height:800px;">  
+
+        <form 
+        {% if edit %}
+            action="{% url 'qishi.views_forum.edit_post' post_id=post_id %}"
+        {% else %}
+            action="{% if topic_post %}{% url 'qishi.views_forum.new_post' forum_id=forum_id %}
+                      {% else %}{% url 'qishi.views_forum.new_reply' topic_id=topic_id %}{% endif %}" 
+        {% endif %}
+        method="POST">
+    
+        {% csrf_token %}
+        <div class="form-group">
+      	    {%if topic_post %}
+            <div style="padding:5px;margin-bottom:10px;">
+                {{ form.subject}}
+            </div>
+            {% endif %}
+            <div style="padding:5px">
+      	    {{ form.message }}
+            </div>
+  	    </div>
+  	    <input type="submit" value="Submit" class="btn btn-success">
+  	    {{ form.media }}
+        </form>
+    </div> 
+</div>
+
+ 
+{% endblock %}

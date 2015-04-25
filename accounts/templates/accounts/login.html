@@ -1,0 +1,17 @@
+{% extends "qishi/base.html" %}
+
+
+{% load qishi_filters %}
+
+
+{% block body %}
+
+<div class="container">
+	<form action="{% url 'accounts.views.user_login' %}" method="post">
+	    {% csrf_token %}
+	    {{ form }}
+	    <input class="btn btn-submit" type="submit" value="Submit">
+	</form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'qishi/base.html' %}
+{% block title %}Qishi - Profile{% endblock %}
+
+{% block body %}
+<!-- Page Content -->
+<div class="container" style="margin-top:70px;" id="tb-forum-main">
+    <div class="row row-offcanvas row-offcanvas-left">
+        <!-- Blog Post Content Column -->
+        <div class="column col-sm-3 col-md-2 col-xs-1 sidebar-offcanvas" id="tb-forum-sidebar">
+        
+            <ul class="nav">
+                <li><a href="#" data-toggle="offcanvas" class="visible-xs text-center"><i class="glyphicon glyphicon-chevron-right"></i></a></li>
+            </ul>
+
+            <ul class="nav hidden-xs" id="tb-lg-menu">
+                {% for category in categories %}
+                    <li><span class="nav nav-text">{{ category.name }}</span></li>
+                    {% for forum in category.forum_set.all %}
+                    <li><a href="{% url 'qishi.views_forum.display_forum' forum_id=forum.id%}">{{ forum.name }}</a></li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+
+            <ul class="nav visible-xs" id="tb-xs-menu">
+                {% for category in categories %}
+                    <li><a href="#"><span class="hidden-xs"></span> </a></li>  
+                {% endfor %}
+            </ul>
+
+        </div>
+
+                
+        <div class="column col-sm-9 col-md-10 col-xs-11">
+
+            <div class="row">
+                <h4>{{ view_user }}'s profile</h4>
+            </div>
+            
+            <div class="row">
+                {% if not view_only %}
+                <p>
+                    <span><a href=""> Change your password (@TODO) </a></span>
+                </p>
+                {% endif %}
+ 
+                <ul>
+                    <li><span>Signature:<strong>{{view_user.user_profile.signature}}</strong></span></li>
+                    <li><span>Favorite animal:<strong>{{view_user.user_profile.favorite_animal}}</strong></span></li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+ 
+{% endblock %}

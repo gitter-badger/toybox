@@ -1,0 +1,49 @@
+{% extends "qishi/base.html" %}
+
+{% load qishi_filters %}
+{% load staticfiles %}
+
+{% block header %}
+<link rel="stylesheet" href="{% static 'qishi/css/qishi_main.css' %}">
+<link rel="stylesheet" href="{% static 'qishi/css/qishi_forum.css' %}">
+{% endblock %}
+
+{% block body %}
+<!-- Background Shade -->
+<div id="background" style="background-image:url({% static 'qishi/img/forum_bk.jpg' %});"></div>
+<div id="background-shade"></div>
+
+<!-- Page Content -->
+<div class="container" style="margin-top:70px">
+  
+  {% for blog in blogs %}  
+        <!-- Title -->
+        <div class="row">
+        	<div class="thumbnail" style="padding:10px;">
+                <h1><a href="{% url 'qishi.views_forum.topic' topic_id=blog.id %}">{{blog.subject}}</a></h1>
+
+                <!-- Author -->
+                <p>
+                    by  {{blog.posted_by.username }}
+                </p>
+
+                <!-- Date/Time -->
+                <p><span> Posted on {{blog.created_on}}</span></p>
+               
+                <!-- Post Content -->
+                <p class="lead">{{blog.mainpost.message|text_markdown|safe}}</p>
+                
+             </div>
+        </div>
+    {% endfor %}
+
+</div>    
+  
+{% endblock %}
+
+
+{% block footer_script %}
+<script type="text/javascript">
+    $( "#navitem-blog" ).addClass("active")
+</script>
+{% endblock %}

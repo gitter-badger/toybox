@@ -1,0 +1,154 @@
+{% extends "qishi/base.html" %}
+
+{% load qishi_filters %}
+{% load staticfiles %}
+
+{% block header %}
+<link rel="stylesheet" href="{% static 'qishi/css/qishi_main.css' %}">
+<link rel="stylesheet" href="{% static 'qishi/css/qishi_forum.css' %}">
+{% endblock %}
+
+{% block body %}
+<!-- Background Shade -->
+<div id="background" style="background-image:url({% static 'qishi/img/forum_bk.jpg' %});"></div>
+<div id="background-shade"></div>
+
+<!-- Page Content -->
+<div class="container" style="margin-top: 70px">
+
+    <!--Nav Bar -->
+    <div class="col-sm-3" style="padding:5px">
+        <div class="thumbnail">
+            <nav class="tb-docs-sidebar">
+                <ul id="sidebar" class="nav nav-stacked fixed">
+                    {% for category in categories %}
+                    <li>
+                        <a href="#">{{ category.name }}</span></a>
+                        <ul class="nav nav-stacked">
+                            {% for forum in category.forum_set.all %}
+                            <li>
+                                <a href="{% url 'qishi.views_forum.display_forum' forum_id=forum.id%}">
+                                    {{ forum.name }}
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+    
+    <!--Main Content -->
+    <div class="col-sm-9" style="padding:5px">
+
+        <div style="text-align:right;">
+            <p><a class="btn btn-primary" href="{% url 'qishi.views_forum.display_forum' forum_id=topic.forum.id %}">Back to {{topic.forum.name}}</a></p>
+        </div>
+
+        <div>
+
+            {% for post in posts %}                     
+            <div class="panel panel-primary" style="overflow:hidden;position:relative">
+            	<!-- topic post header -->
+            	{% if post.topic_post %}
+                <!-- Topic Heading -->
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-bookmark"></span> {{topic.subject}}
+                    </h3>
+                </div>
+				<!-- Topic attributes -->
+                <div class=".tb-topic-sm-control-box">
+                    <ul class="nav nav-pills" style="padding:0px">                	
+                    	<!-- delete topic button -->
+                        {% if user.is_staff%}
+                        <li class="pull-left" style="padding:0px;margin-left:10px">
+                            <a style="padding:0px" href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')"><span>Delete</span></a>
+                        </li>
+                        {% endif %}
+						<!-- set blog button -->
+                        {% if user.is_staff %}
+                        <li class="pull-left" style="padding:0px;margin-left:10px">
+                            <a style="padding:0px" href="{% url 'qishi.views_forum.update_topic_attr_switch' topic_id=topic.id attr='is_blog' %}">
+                            {% if topic.is_blog %} unset blog {% else %} set blog {% endif %}
+                            </a>  
+                        </li>
+                        {% endif %}
+                        <!-- like button and the number of likes -->
+                        <li role="presentation" class="pull-right">
+                        {% if user in topic.liked_by.all %} <a href="{% url 'qishi.views_forum.like_topic_switch' topic_id=topic.id %}"> Unlike <span class="badge">{{ topic.num_likes }}</span></a> {% else %}
+                        <a href="{% url 'qishi.views_forum.like_topic_switch' topic_id=topic.id %}"> Like <span class="badge">{{ topic.num_likes }}</span></a>
+                        {% endif %}
+                        </li>
+                        
+                        <!-- number of views -->
+                        <li role="presentation" class="pull-right">
+                            <a href="#">Views <span class="badge">{{ topic.num_views }}</span></a>
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
+			 
+                <!-- Post Content -->
+                <div class="panel-body" style="position:relative">
+                   {{ post.message|text_markdown|safe }}
+                </div>
+
+                <!-- Post Footer -->
+                <div class="panel-footer tb-topic-footer" style="padding:0px;">
+                    <ul class="nav nav-pills" role="tablist">
+                        <li role="presentation">
+                            <a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}"><span>Posted by</span> {{ post.posted_by }}</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="">{{ post.created_on }}</a>
+                        </li>
+                        <!-- delete post button -->
+                         {% if user.is_staff or user.id == post.posted_by.id %}
+                         <li role="presentation" class="pull-right">
+                            <a href="{% url 'qishi.views_forum.delete_post' post_id=post.id %}" onclick="return confirm('Do you want to delete it?')">Delete</a>
+                        </li>
+                        {% endif %}
+                        <!-- edit post button -->
+                        
+                        {% if user.id == post.posted_by.id %}
+                    	<li role="presentation" class="pull-right">
+                            <a href="{% url 'qishi.views_forum.edit_post' post_id=post.id %}"  >Edit</a>
+                        </li>
+                        {% endif %}
+                        
+                    </ul>
+                </div>
+			
+            </div>
+            {% endfor %} <!-- for post in posts --> 
+
+            {% if user.is_authenticated %}
+            <div  class="panel panel-default" role="reply">
+                <!-- Reply Heading -->
+                <div class="panel-heading">
+                    <h3 class="panel-title">Reply below:</h3>
+                </div>                
+
+                <div class="panel-body">
+                    <form action="{% url 'qishi.views_forum.new_reply' topic_id=topic.id %}"  method="post" >
+                        {% csrf_token %} 
+                        <div class="form-group">
+							{{ form.message }}
+						</div>
+						<input type="submit" value="Submit" class="btn btn-success">
+						{{ form.media }}
+                    </form>         
+                </div>
+            </div>  
+            {% endif %}
+    
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

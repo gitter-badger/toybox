@@ -1,0 +1,252 @@
+{% extends "qishi/base.html" %}
+
+{% load qishi_filters %}
+{% load staticfiles %}
+
+{% block title %}Welcome to Qishi{% endblock %}
+
+
+{% block header %}
+<link rel="stylesheet" href="{% static 'qishi/css/qishi_main.css' %}">
+{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+
+	<div class="row">
+		<div id="tb-premain-block">
+			<div id="tb-premain-content" class="tb-max-height">	
+				<div class="tb-vertical-center">
+					<h1 style="font-family: 'Benton Sans','Helvetica Neue',Helvetica,Roboto,Arial,sans-serif;">
+						Welcome to Qi Shi
+					</h1>
+					<h2>欢迎来到琪石</h2>
+					{% if not user.is_authenticated %}
+					<div class="tb-small-center-box">
+	 					
+	 					<form id="login" class="tb-form-signin" action="{% url 'qishi.views_user.user_login' %}" method="post">
+							<span id="reauth-email" class="reauth-email"></span>
+							{% csrf_token %}
+							{{ login_form.username }}
+							{{ login_form.password }}
+							<button class="btn btn-sm btn-primary btn-block btn-signin" type="submit">Log in</button>
+						    <h5 style="text-align:right;"><span style="text-decoration:underline;cursor:pointer;cursor:hand;" onclick="LoginRegisterSwitch();return false;"><b>Signup</b></span></h5>
+	            		</form> 
+
+	            		
+	            		<form id="signup" class="tb-form-signin"  action="{% url 'qishi.views_user.user_register' %}" method="post">
+	                		<span id="reauth-email" class="reauth-email"></span>
+	                		{% csrf_token %}
+	                		{{ register_form.username }}
+	                		{{ register_form.email }}
+							{{ register_form.password }}
+							<button class="btn btn-sm btn-success btn-block btn-signin" type="submit">Sign up</button>
+							<h5 style="text-align:right;"><span style="text-decoration:underline;cursor:pointer;cursor:hand;" onclick="LoginRegisterSwitch();return false;"><b>Login</b></span></h5>
+	            		</form> 
+
+	            	</div>
+	            	{% endif %}
+				</div>
+			</div>
+		
+			<div id="tb-premain-bg-img" class="tb-max-height"><!-- (id:js) -->
+				<div id="tb-premain-mask" class="tb-max-height"></div>
+				<img src="{% static 'qishi/img/bk_img_1.jpg' %}" class="active" />
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container" style="height:25px;"></div>
+
+<div class="container">	
+	
+	<div class="row">
+		<div class="col-sm-12" style="text-align:center">
+			<img src="{% static 'qishi/logo.png' %}" style="height:67px" />
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-12" style="text-align:center;">
+			<h1 style="color:#444444">
+				Together Towards Greatness
+			</h1>
+			<h3 style="color:#999999">
+				Qishi is a professional career development club focused on the financial industry.
+			</h3>
+		</div>
+	</div>
+
+	<div class="row" style="padding-top:10px;">
+		<div class="col-sm-4" style="padding:10px">
+			<div style="padding:5px;width:85%;margin-left:auto;margin-right:auto;min-width:200px;height:250px;background-color:#56BC78;overflow:hidden">
+				<h3>Study Group:</h3> 
+				<h4>Machine Learning (Intermediate)</h4>
+				<p>
+					In this study group, we will discuss Stochastic Gradient Descent (SGD) 
+					and Support Vector Machines (SVM).
+				</p>
+				<p>
+					Duration: Jul 14, 2014 - May 31, 2015
+				</p>
+			</div>
+		</div>
+		<div class="col-sm-4" style="padding:10px">
+			<div style="padding:5px;width:85%;margin-left:auto;margin-right:auto;min-width:200px;height:250px;background-color:#EF7889;overflow:hidden">
+				<h3>Study Group:</h3> 
+				<h4>Machine Learning (Intermediate)</h4>
+				<p>
+					In this study group, we will discuss Stochastic Gradient Descent (SGD) 
+					and Support Vector Machines (SVM).
+				</p>
+				<p>
+					Duration: Jul 14, 2014 - May 31, 2015
+				</p>
+			</div>
+		</div>
+		<div class="col-sm-4" style="padding:10px">
+			<div style="padding:5px;width:85%;margin-left:auto;margin-right:auto;min-width:200px;height:250px;background-color:#89CCEE;overflow:hidden">
+				<h3>Study Group:</h3> 
+				<h4>Machine Learning (Intermediate)</h4>
+				<p>
+					In this study group, we will discuss Stochastic Gradient Descent (SGD) 
+					and Support Vector Machines (SVM).
+				</p>
+				<p>
+					Duration: Jul 14, 2014 - May 31, 2015
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="row" style="padding-top:10px;text-align:center">
+		<div class="col-sm-12" style="padding:10px;color:#999999">
+		<h3>
+			xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx 
+			xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx 
+			xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx 
+			xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx 
+		</h3>
+		</div>
+	</div>
+
+	<div class="row" style="padding-top:10px;text-align:center">
+		<div class="col-sm-12" style="padding:10px;color:#999999">
+		<h3>
+			xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx 
+			xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx 
+			xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx 
+			xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx xxx 
+		</h3>
+		</div>
+	</div>
+
+	<div class="row" style="height:100px">
+	</div>
+</div>
+
+
+<!-- Footer -->
+<div class="container-fluid" style="margin-top:-100px;height:100px;background-color:#AAAAAA;padding-top:15px">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <ul>
+                    <li><a href="#">Contact us</a></li>
+                    <li><a href="#">Site map</a></li>
+                    <li><a href="#">Other info</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-4">
+                <ul>
+                    <li><a href="#">Link 1</a></li>
+                    <li><a href="#">Link 2</a></li>
+                    <li><a href="#">Link 3</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-4">
+                <ul>
+                    <li><a href="#">Flash KickIn</a></li>
+                    <li><a href="#">1 River Ct 7896</a></li>
+                    <li><a href="#">Jersey City, NJ 07310</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+        
+{% endblock %}
+
+
+{% block footer_script %}
+<script type="text/javascript">
+
+function LoginRegisterSwitch() {
+	$( "#login" ).toggle();
+	$( "#signup" ).toggle();
+}
+
+function cycleImages(){
+	var $active = $('#tb-premain-bg-img .active');
+	var $next = ($active.next().length > 0) ? $active.next() : $('#tb-premain-bg-img img:first');
+	$next.css('z-index',2);//move the next image up the pile
+	$active.fadeOut(1500,function(){//fade out the top image
+		$active.css('z-index',1).show().removeClass('active');//reset the z-index and unhide the image
+		$next.css('z-index',3).addClass('active');//make the next image the top one
+	});
+}
+
+function isMobile() {
+    if(window.innerWidth <= 600) {
+        return true;   
+    } else {
+        return false;
+    }
+}
+
+var images = [
+    "{% static 'qishi/img/bk_img_2.jpg' %}",
+    "{% static 'qishi/img/bk_img_3.jpg' %}",
+    "{% static 'qishi/img/bk_img_4.jpg' %}",
+    "{% static 'qishi/img/bk_img_5.jpg' %}",	
+    "{% static 'qishi/img/bk_img_6.jpg' %}",	
+    "{% static 'qishi/img/bk_img_7.jpg' %}",	
+    "{% static 'qishi/img/bk_img_8.jpg' %}",	
+    "{% static 'qishi/img/bk_img_9.jpg' %}",	
+    "{% static 'qishi/img/bk_img_10.jpg' %}",	
+    "{% static 'qishi/img/bk_img_11.jpg' %}",
+    "{% static 'qishi/img/bk_img_12.jpg' %}",
+    "{% static 'qishi/img/bk_img_13.jpg' %}",
+    "{% static 'qishi/img/bk_img_14.jpg' %}",
+    "{% static 'qishi/img/bk_img_15.jpg' %}",
+    "{% static 'qishi/img/bk_img_16.jpg' %}",
+    "{% static 'qishi/img/bk_img_17.jpg' %}",
+];
+
+
+
+$(document).ready(function(){
+    $( "body" ).css("height", "100vh");
+    $( "#signup" ).toggle();
+
+    $( "#navitem-home" ).addClass("active");
+
+    // run every 7s
+    if( !isMobile() ) {
+        images.forEach(function(elem, idx, arr) {
+            $("#tb-premain-bg-img").append('<img src="' + elem + '">');
+        })
+        setInterval('cycleImages()', 7000);
+    }
+
+})
+
+//$( window ).resize(function() {
+//    $( "#tb-premain-bg-img" ).css("height", $( window ).height());
+//});
+
+</script>
+{% endblock %}
