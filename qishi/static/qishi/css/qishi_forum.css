@@ -23,3 +23,20 @@
     top:0;
     z-index:-1;
 }
+
+
+/* Forum Display Styles*/
+img[alt=sm] {
+    width:100px;
+    height:auto;
+}
+
+img[alt=md] {
+    width:300px;
+    height:auto;
+}
+
+img[alt=lg] {
+    width:600px;
+    height:auto;
+}
