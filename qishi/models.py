@@ -82,7 +82,7 @@ class Topic(models.Model):
                         related_name='topics_liked')
 
     class Meta:
-        ordering = ('created_on',) #TODO 
+        ordering = ('-created_on',) #TODO 
         get_latest_by = ('created_on')
         verbose_name = _("Topic")
         verbose_name_plural = _("Topics")
