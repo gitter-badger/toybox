@@ -45,7 +45,7 @@
     <!--Main Content -->
     <div class="col-sm-9" style="padding:5px">
         <div class="panel panel-default" style="padding:10px;min-height:85vh;">
-        {% if topics %}    
+         
             <div style="float:left;line-height:1.42857143">
                 <a class="btn btn-primary btn-sm" href="{% url 'qishi.views_forum.new_post' forum_id=forum_id%}"
                    style="margin:20px 0;">
@@ -70,39 +70,41 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for topic in topics %}
-                    <tr>
-                        <!-- ID -->
-                        {% comment %}
-                            <td>{{ forloop.counter }}</td>
-                        {% endcomment %}
-                        <td><span class="glyphicon glyphicon-file"></span></td>
-                        <!-- Title -->
-                        <td><a href="{% url 'qishi.views_forum.topic' topic_id=topic.id %}">{{topic.subject}}</a></td>
+                    {% if topics %}  
+                        {% for topic in topics %}
+                        <tr>
+                            <!-- ID -->
+                            {% comment %}
+                                <td>{{ forloop.counter }}</td>
+                            {% endcomment %}
+                            <td><span class="glyphicon glyphicon-file"></span></td>
+                            <!-- Title -->
+                            <td><a href="{% url 'qishi.views_forum.topic' topic_id=topic.id %}">{{topic.subject}}</a></td>
 
-                        <!-- Author -->
-                        <td>
-                            <a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}">{{ topic.posted_by }}</a>
-                        </td>
+                            <!-- Author -->
+                            <td>
+                                <a href="{% url 'accounts.views.profile' user_id=topic.posted_by.pk %}">{{ topic.posted_by }}</a>
+                            </td>
 
-                        <!-- Date/Time -->
-                        <td class="hidden-xs"><span class="glyphicon glyphicon-time"></span> {{ topic.created_on|date:"SHORT_DATETIME_FORMAT" }}</td>
+                            <!-- Date/Time -->
+                            <td class="hidden-xs"><span class="glyphicon glyphicon-time"></span> {{ topic.created_on|date:"SHORT_DATETIME_FORMAT" }}</td>
 
-                        <!-- Options -->
-                        {% if user.is_staff %}
-                        <td class="hidden-xs"><a href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</a></td>
-                        {% endif %}
-                     </tr>              
-                     {% endfor %} <!-- topics -->
+                            <!-- Options -->
+                            {% if user.is_staff %}
+                            <td class="hidden-xs"><a href="{% url 'qishi.views_forum.delete_topic' topic_id=topic.id %}" onclick="return confirm('Do you want to delete it?')">Delete</a></td>
+                            {% endif %}
+                         </tr>              
+                         {% endfor %} <!-- topics -->
+                    
+            
+                    {% endif %} <!-- if topics -->
                      <tr>
                         <td></td><td></td><td></td><td></td>
                         {% if user.is_staff %}<td></td>{% endif %}
                      </tr>
                 </tbody>
             </table>
-        {% else %}
-            <p>There's no post yet</p>
-        {% endif %}
+       
         </div>
     </div>
 
