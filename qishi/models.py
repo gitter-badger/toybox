@@ -77,9 +77,9 @@ class Topic(models.Model):
     closed = models.BooleanField(default=False)
     sticky = models.BooleanField(default=False)
     is_blog = models.BooleanField(default=False)
-    num_likes = models.IntegerField(default=0)
-    liked_by = models.ManyToManyField(User,blank=True, null=True,
-                        related_name='topics_liked')
+    # num_likes = models.IntegerField(default=0)
+    # liked_by = models.ManyToManyField(User,blank=True, null=True,
+    #                     related_name='topics_liked')
 
     class Meta:
         ordering = ('-created_on',) #TODO 
@@ -107,6 +107,10 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(blank=True, null=True)
     
+    num_likes = models.IntegerField(default=0)
+    liked_by = models.ManyToManyField(User,blank=True, null=True,
+                        related_name='posts_liked')
+
     class Meta:
         verbose_name = _("Post")
         verbose_name_plural = _("Posts")

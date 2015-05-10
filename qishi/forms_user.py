@@ -29,7 +29,7 @@ class UserLoginForm(forms.Form):
 class UserRegisterForm(forms.ModelForm):
     # rewrite default variables (User)
     username = forms.CharField( 
-        label="Username", max_length=20,
+        label="Username", max_length=30,
         widget=forms.TextInput(attrs={
             'id':          'registerUsername',
             'placeholder': 'Username',
@@ -39,7 +39,7 @@ class UserRegisterForm(forms.ModelForm):
             'type':        'text',
         })) 
     email = forms.CharField( 
-        label="Email", max_length=20,
+        label="Email", max_length=40,
         widget=forms.TextInput(attrs={
             'id':          'registerEmail',
             'placeholder': 'Email address',

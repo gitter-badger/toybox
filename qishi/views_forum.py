@@ -157,20 +157,20 @@ def edit_post(request, post_id):
     
 
 @login_required(login_url="/qishi/home/")
-def like_topic_switch(request, topic_id):
-	""" like a topic if the user is not in the liked_by list. Otherwise, unlike the topic.
+def like_post_switch(request, post_id):
+	""" like a post if the user is not in the liked_by list. Otherwise, unlike the post.
 	"""
-	topic = get_object_or_404(Topic, pk=topic_id)
-	if request.user in topic.liked_by.all() :
-		topic.liked_by.remove(request.user)
-		topic.num_likes -= 1
-		topic.save()
+	post = get_object_or_404(Post, pk=post_id)
+	if request.user in post.liked_by.all() :
+		post.liked_by.remove(request.user)
+		post.num_likes -= 1
+		post.save()
 	else:
-		topic.liked_by.add(request.user)
-		topic.num_likes += 1
-		topic.save()
+		post.liked_by.add(request.user)
+		post.num_likes += 1
+		post.save()
 	
-	return HttpResponseRedirect(reverse("qishi.views_forum.topic", args=[topic.id]))
+	return HttpResponseRedirect(reverse("qishi.views_forum.topic", args=[post.topic.id]))
 	
 
 @login_required(login_url="/qishi/home/")

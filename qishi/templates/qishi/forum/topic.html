@@ -23,7 +23,7 @@
                 <ul id="sidebar" class="nav nav-stacked fixed">
                     {% for category in categories %}
                     <li>
-                        <a href="#">{{ category.name }}</span></a>
+                         <b>{{ category.name }}</b> 
                         <ul class="nav nav-stacked">
                             {% for forum in category.forum_set.all %}
                             <li>
@@ -76,12 +76,7 @@
                             </a>  
                         </li>
                         {% endif %}
-                        <!-- like button and the number of likes -->
-                        <li role="presentation" class="pull-right">
-                        {% if user in topic.liked_by.all %} <a href="{% url 'qishi.views_forum.like_topic_switch' topic_id=topic.id %}"> Unlike <span class="badge">{{ topic.num_likes }}</span></a> {% else %}
-                        <a href="{% url 'qishi.views_forum.like_topic_switch' topic_id=topic.id %}"> Like <span class="badge">{{ topic.num_likes }}</span></a>
-                        {% endif %}
-                        </li>
+                        
                         
                         <!-- number of views -->
                         <li role="presentation" class="pull-right">
@@ -118,6 +113,11 @@
                             <a href="{% url 'qishi.views_forum.edit_post' post_id=post.id %}"  >Edit</a>
                         </li>
                         {% endif %}
+                        <!-- like button and the number of likes -->
+                        <li role="presentation" class="pull-right">
+                        <a href="{% url 'qishi.views_forum.like_post_switch' post_id=post.id %}">{% if user in post.liked_by.all %}  Unlike {% else %} Like {% endif %}<span class="badge">{{ post.num_likes }}</span></a> 
+                        
+                        </li>
                         
                     </ul>
                 </div>
